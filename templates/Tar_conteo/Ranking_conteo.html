@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}Ranking - ronda X{% endblock %}
+{{% block content %}
+<div class="instructions well well-lg">
+
+    <p>
+        El puntaje obtenido por cada participante del grupo en esta ronda se muestra en la siguiente tabla:
+             
+    </p>
+    <table>
+        <tbody>
+            <tr>
+                <th>
+                    ID del participante
+                </th>
+                <th>
+                    puntaje
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% next_button %}
+{% endblock %}

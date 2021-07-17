@@ -1,0 +1,114 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}Encuesta Final{% endblock %}
+{% block content %}
+<div class="instructions well well-lg">
+
+    <p>
+        En esta sección, le pedimos que complete el siguiente cuestionario. 
+        Por favor, responda de la manera más honesta y completa que pueda, 
+        ¡ya que su respuesta puede ayudarnos enormemente!             
+    </p>
+
+    {% formfield 'num_ID' %}
+    {% formfield 'gender' %}
+    {% formfield 'age' %}
+    {% formfield 'career' %}
+    {% formfield 'ciclo' %}
+    {% formfield 'escala' %}
+    {% formfield 'exp' %}
+
+    <p>
+        8. Lea cada enunciado con atención y seleccione la opción verdadera para usted.
+    </p>
+    <table class="table" frame="void" style="width:100%; ">
+
+        <tr >
+        
+        <th></th>
+        <th> <div>Totalmente de acuerdo</div> 1 </th>
+        <th> <br><div>De acuerdo</div> 2 </th>
+        <th> <br><div>En desacuerdo</div> 3 </th>
+        <th> <div>Totalmente en desacuerdo</div> 4 </th>
+        
+        </tr>
+        
+        {% for field in form %}
+        {% if forloop.counter > 7 and forloop.counter < 22 %} 
+        <tr>
+
+        <td align="left" style="min-width:40px">{{ field.label }}</td>
+
+        {% for choice in field %}
+        <td align="center" >{{ choice }}</td>
+        {% endfor %}
+
+        </tr>
+
+        {% endif %}
+        {% endfor %}
+        </table>
+        
+        <style>
+        tr:nth-child(even) {background-color: #f9f9f9;}
+        th {
+        text-align:center;
+        width: 10%;
+        }
+        input[type="radio"]{margin-left:-5.5px}
+        </style>
+    <p>
+        9. Lea con atención cada enunciado y seleccione la opción verdadera para usted.
+    </p>
+    <table class="table" frame="void" style="width:100%; ">
+
+        <tr >
+        
+        <th></th>
+        <th> <div>Totalmente de acuerdo</div> 1 </th>
+        <th> <br><div>De acuerdo</div> 2 </th>
+        <th> <br><div>En desacuerdo</div> 3 </th>
+        <th> <div>Totalmente en desacuerdo</div> 4 </th>
+        
+        </tr>
+        
+        {% for field in form %}
+        {% if player.treatment == 'T1' or player.treatment == 'T3' %}
+            {% if forloop.counter > 21 %} 
+            <tr>
+
+                <td align="left" style="min-width:40px">{{ field.label }}</td>
+        
+                {% for choice in field %}
+                <td align="center" >{{ choice }}</td>
+                {% endfor %}
+        
+            </tr>
+        
+            {% endif %}
+            
+        {% else %}
+            {% if  forloop.counter > 21 and  forloop.counter < 26 %} 
+            <tr>
+
+            <td align="left" style="min-width:40px">{{ field.label }}</td>
+
+            {% for choice in field %}
+            <td align="center" >{{ choice }}</td>
+            {% endfor %}
+
+            </tr>
+
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+    </table>
+
+    <br>
+    <p>
+        <div>¡Muchas gracias por tu participación en este experimento!</div>
+    </p>
+
+</div>
+{% next_button %}
+{% endblock %}

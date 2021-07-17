@@ -1,0 +1,64 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block content %}
+<div class="instructions well well-lg">
+
+    <h3>
+        Tarea de conteo - Instrucciones
+    </h3>
+    <p>
+        En esta tarea, se presentarán matrices de 10x10 una a la vez hasta que 
+        se termine el tiempo asignado. Estas matrices contendrán diferentes cantidades 
+        de unos y ceros. Usted deberá encontrar la cantidad de ceros que hay en cada 
+        matriz e ingresar la respuesta en el recuadro que se presentará en la pantalla.        
+    </p>
+    {%if player.treatment == 'C'%}
+    <p>
+        Se realizarán cuatro rondas de 5 minutos cada una, en las que deberás resolver 
+        la tarea descrita anteriormente. Al finalizar cada ronda, se presentará en tu 
+        pantalla un ranking con los puntajes obtenidos por los participantes de tu grupo 
+        en esa ronda. Por otro lado, se dará un minuto de prueba para que pueda familiarizarse 
+        con la tarea antes de realizar las cuatro rondas.
+    </p>
+    {%elif player.treatment == 'T1'%}
+    <p>
+        Se realizarán cuatro rondas de 5 minutos cada una, en las que deberás resolver la tarea 
+        descrita anteriormente. Al finalizar cada ronda, se presentará en tu pantalla un ranking 
+        con los puntajes obtenidos por los participantes de tu grupo en esa ronda. Por otro lado, 
+        se dará un minuto de prueba para que pueda familiarizarse con la tarea antes de realizar 
+        las cuatro rondas. 
+    </p>
+    <p>
+        Por último, tendrás la oportunidad de recibir dinero real si logras obtener el mayor puntaje 
+        en el ranking. El participante que obtenga el mayor puntaje, recibirá 0.20 céntimos por punto 
+        obtenido en cada ronda. Es decir, si eres el participante que se encuentra primero en el ranking 
+        en la ronda 1 con 9 puntos, recibirás de pago 1.80 soles. En el caso de que en la ronda 2 no 
+        ocupes el primer lugar, no recibirás nada en esa ronda. Por lo tanto, a mayor cantidad de rondas 
+        ganadas, mayor posibilidad de ganar más dinero.  
+    </p>
+    {%elif player.treatment == 'T2'%}
+    <p>
+        Se realizarán cuatro rondas de 3 minutos cada una, en las que deberás resolver la tarea descrita 
+        anteriormente. Al finalizar cada ronda, se presentará en tu pantalla un ranking con los puntajes 
+        obtenidos por los participantes de tu grupo en esa ronda. Por otro lado, se dará un minuto de prueba 
+        para que pueda familiarizarse con la tarea antes de realizar las cuatro rondas.
+    </p>
+    {%else%}
+    <p>
+        Se realizarán cuatro rondas de 3 minutos cada una, en las que deberás resolver la tarea descrita 
+        anteriormente. Al finalizar cada ronda, se presentará en tu pantalla un ranking con los puntajes 
+        obtenidos por los participantes de tu grupo en esa ronda. Por otro lado, se dará un minuto de prueba 
+        para que pueda familiarizarse con la tarea antes de realizar las cuatro rondas.
+    </p>
+    <p>
+        Por último, tendrás la oportunidad de recibir dinero real si logras obtener el mayor puntaje en el 
+        ranking. El participante que obtenga el mayor puntaje, recibirá 0.20 céntimos por punto obtenido en 
+        cada ronda. Es decir, si eres el participante que se encuentra primero en el ranking en la ronda 1 
+        con 9 puntos, recibirás de pago 1.80 soles. En el caso de que en la ronda 2 no ocupes el primer lugar, 
+        no recibirás nada en esa ronda. Por lo tanto, a mayor cantidad de rondas ganadas, mayor posibilidad de 
+        ganar más dinero.
+    </p>
+    {%endif%}
+</div>
+{% next_button %}
+{% endblock %}
