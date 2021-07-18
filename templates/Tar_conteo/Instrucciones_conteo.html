@@ -12,7 +12,7 @@
         de unos y ceros. Usted deberá encontrar la cantidad de ceros que hay en cada 
         matriz e ingresar la respuesta en el recuadro que se presentará en la pantalla.        
     </p>
-    {%if player.treatment == 'C'%}
+    {%if group.treatment == 'C'%}
     <p>
         Se realizarán cuatro rondas de 5 minutos cada una, en las que deberás resolver 
         la tarea descrita anteriormente. Al finalizar cada ronda, se presentará en tu 
@@ -20,7 +20,7 @@
         en esa ronda. Por otro lado, se dará un minuto de prueba para que pueda familiarizarse 
         con la tarea antes de realizar las cuatro rondas.
     </p>
-    {%elif player.treatment == 'T1'%}
+    {%elif group.treatment == 'T1'%}
     <p>
         Se realizarán cuatro rondas de 5 minutos cada una, en las que deberás resolver la tarea 
         descrita anteriormente. Al finalizar cada ronda, se presentará en tu pantalla un ranking 
@@ -36,7 +36,7 @@
         ocupes el primer lugar, no recibirás nada en esa ronda. Por lo tanto, a mayor cantidad de rondas 
         ganadas, mayor posibilidad de ganar más dinero.  
     </p>
-    {%elif player.treatment == 'T2'%}
+    {%elif group.treatment == 'T2'%}
     <p>
         Se realizarán cuatro rondas de 3 minutos cada una, en las que deberás resolver la tarea descrita 
         anteriormente. Al finalizar cada ronda, se presentará en tu pantalla un ranking con los puntajes 

@@ -24,7 +24,7 @@ Experimento de incentivos (a partir de la tarea de conteo)
 
 class Constants(BaseConstants):
     name_in_url = 'Tar_conteo'
-    players_per_group = None
+    players_per_group = 4
     num_rounds = 10
     task_time_c_p = 60  #prueba conteo
     task_time_c_s = 300 #conteo sin presión
@@ -41,13 +41,7 @@ def func(n):
 class Subsession(BaseSubsession):
     ##por ahora sólo se ha asignado tratamiento por participante
     ##cambiar más adelante a grupos
-    def creating_session(self):
-     #randomize to treatments
-        if self.round_number==1:
-            for player in self.get_players():
-                player.treatment = random.choice(['C', 'T1', 'T2', 'T3'])
-                print('Treatment:', player.treatment)
-    
+    def creating_session(self):    
         self.row1 = ' '.join(random.choices(["0","1"], k=10))
         self.row2 = ' '.join(random.choices(["0","1"], k=10))
         self.row3 = ' '.join(random.choices(["0","1"], k=10))
@@ -63,6 +57,8 @@ class Subsession(BaseSubsession):
                                self.row7.count("0"), self.row8.count("0"), self.row9.count("0"), 
                                self.row10.count("0"),
                                ])
+        
+
     total_zeroes = models.IntegerField()
 
     row1 = models.CharField()
@@ -88,6 +84,9 @@ def make_field(label):
     )
 
 class Player(BasePlayer):
+
+    treatment=models.StringField()
+
     num_ID = models.StringField(label='1. ¿Cuál es tu número ID')
     age = models.IntegerField(label='3. ¿Cuál es tu edad?', min=13, max=40)
     gender = models.StringField(
@@ -133,14 +132,24 @@ class Player(BasePlayer):
     q19 = make_field('Los incentivos monetarios ofrecidos coinciden con mi esfuerzo en las tareas realizadas')
     q20 = make_field('El incentivo monetario ofrecido no está a la altura de mis expectativas')
     
-    treatment = models.StringField()
 
-    def is_correct(self):
-        if self.answer == self.subsession.total_zeroes:
-            self.answer_correct = 1
+    def is_correct_R1(self):
+        if self.answer_R1 == self.subsession.total_zeroes:
+            self.answer_correct_R1 = 1
         else:
-            self.answer_correct = 0
+            self.answer_correct_R1 = 0
 
-    answer = models.IntegerField(verbose_name="""""", blank = True)
-    answer_correct = models.BooleanField()
-    total_answers_correct = models.IntegerField()
+    answer_R1 = models.IntegerField(verbose_name="""""", blank = True)
+    answer_correct_R1 = models.BooleanField()
+    total_answers_correct_R1 = models.IntegerField()
+
+
+    def is_correct_R2(self):
+        if self.answer_R2 == self.subsession.total_zeroes:
+            self.answer_correct_R2 = 1
+        else:
+            self.answer_correct_R2 = 0
+
+    answer_R2 = models.IntegerField(verbose_name="""""", blank = True)
+    answer_correct_R2 = models.BooleanField()
+    total_answers_correct_R2 = models.IntegerField()
