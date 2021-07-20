@@ -163,15 +163,15 @@ class Player(BasePlayer):
     total_answers_correct_R2 = models.IntegerField()
 
 
-    p_1=models.IntegerField()
-    p_2=models.IntegerField()
-    p_3=models.IntegerField()
-    p_4=models.IntegerField()
+#    p_1=models.IntegerField()
+#    p_2=models.IntegerField()
+#    p_3=models.IntegerField()
+#    p_4=models.IntegerField()
 
-    pt_1=models.IntegerField()
-    pt_2=models.IntegerField()
-    pt_3=models.IntegerField()
-    pt_4=models.IntegerField()
+#    pt_1=models.IntegerField()
+#    pt_2=models.IntegerField()
+#    pt_3=models.IntegerField()
+#    pt_4=models.IntegerField()
 
 
 #            elif i_3==i_2:
