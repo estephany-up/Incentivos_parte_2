@@ -29,6 +29,7 @@ class Constants(BaseConstants):
     task_time_c_p = 60  #prueba conteo
     task_time_c_s = 300 #conteo sin presión
     task_time_c_t = 180 #conteo con presión
+    point=c(1)
 
 #crear lista de ceros y unos
 def func(n):
@@ -57,6 +58,15 @@ class Subsession(BaseSubsession):
                                self.row7.count("0"), self.row8.count("0"), self.row9.count("0"), 
                                self.row10.count("0"),
                                ])
+
+######falta juntar el tratamiento par ambas apps
+        if self.round_number==1:
+            for g in self.get_groups():
+                p1=g.get_player_by_id(1)
+                p1.participant.vars['group_treatment']=random.choice(['C', 'T1', 'T2', 'T3'])
+                Group.treatment=p1.participant.vars['group_treatment']
+               #Group.treatment = random.choice(['C', 'T1', 'T2', 'T3'])
+                print('Treatment:', p1.participant.vars['group_treatment'])
         
 
     total_zeroes = models.IntegerField()
@@ -73,7 +83,7 @@ class Subsession(BaseSubsession):
     row10 = models.CharField()
 
 class Group(BaseGroup):
-    pass
+   treatment=models.StringField()
 
 
 def make_field(label):
@@ -84,8 +94,6 @@ def make_field(label):
     )
 
 class Player(BasePlayer):
-
-    treatment=models.StringField()
 
     num_ID = models.StringField(label='1. ¿Cuál es tu número ID')
     age = models.IntegerField(label='3. ¿Cuál es tu edad?', min=13, max=40)
@@ -153,3 +161,60 @@ class Player(BasePlayer):
     answer_R2 = models.IntegerField(verbose_name="""""", blank = True)
     answer_correct_R2 = models.BooleanField()
     total_answers_correct_R2 = models.IntegerField()
+
+
+    p_1=models.IntegerField()
+    p_2=models.IntegerField()
+    p_3=models.IntegerField()
+    p_4=models.IntegerField()
+
+    pt_1=models.IntegerField()
+    pt_2=models.IntegerField()
+    pt_3=models.IntegerField()
+    pt_4=models.IntegerField()
+
+
+#            elif i_3==i_2:
+#                if i_2==random.choice(i_3,i_2):
+#                    i_2=i_2
+#                else:
+#                    i_3=i_4
+
+#def rank_giver(Numbers):
+#    first = 0
+#    second = 0
+#    third = 0
+#    for num in Numbers:
+#        if num > third:
+#          third = num
+#        if third > second:
+#            temp = second
+#            second = third
+#            third = temp
+#        if second > first:
+#            temp = first
+#            first = second                                           
+#            second = temp
+#            
+#    return first,second,third
+#
+#print(rank_giver([10, 20, 50, 99]))   
+
+#<table>
+#{% for p in subsession.get_players %}
+#<tr>
+#<td>{{ p.id_in_group }}</td>
+#<td>{{ p.total_payoff}}</td>
+#<td>{{ p.donation}}</td>
+#</tr>
+#{% endfor %}
+#</table>
+
+
+#class Player(BasePlayer):
+#     random_id = models.IntegerField()
+
+#class Subsession(BaseSubsession):
+#     def before_session_starts(self):
+#         for p in self.get_players():
+#             p.random_id = p.id_in_group
