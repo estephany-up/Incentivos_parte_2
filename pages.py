@@ -79,55 +79,30 @@ class Tarea_conteo_R1(Page):
             player.participant.vars["timedout_realeffort_R1"] = False
         if self.player.round_number == Constants.num_rounds: #creo que esto no es necesario
             player_in_all_rounds = self.player.in_all_rounds()
-            player.total_answers_correct_R1 = sum([p.answer_correct_R1 for p in player_in_all_rounds])
+            self.player.total_answers_correct_R1 = sum([p.answer_correct_R1 for p in player_in_all_rounds])
             self.player.participant.vars["realeffort_correct_R1"] = sum([p.answer_correct_R1 for p in player_in_all_rounds])
             self.session.vars['realeffort_possible_R1'] = Constants.num_rounds
             print(self.player.participant.vars['realeffort_correct_R1'])
-        
 
 
 class Ranking_conteo_R1(Page):
     def is_displayed(self):
-        return self.round_number == 10
+        return self.round_number == Constants.num_rounds
     
     def vars_for_template(self):
-        i_1=0 ##puestos 
-        i_2=0
-        i_3=0
-        i_4=0
-        p_1=0 #id del puesto
-        p_2=0
-        p_3=0
-        p_4=0
-
-        for p in self.group.get_players(): 
-            if p.total_answers_correct_R1 > i_4:
-                i_4=p.total_answers_correct_R1
-                p_4=p
-            if i_4 > i_3:
-                temp=i_3
-                i_3=i_4
-                i_4=temp
-                tee=p_3
-                p_3=p_4
-                p_4=tee
-            if i_3 > i_2:
-                temp=i_2
-                i_2=i_3
-                i_3=temp
-                tee=p_2
-                p_2=p_3
-                p_3=tee
-            if i_2 > i_1:
-                temp=i_1
-                i_1=i_2
-                i_2=temp
-                tee=p_1
-                p_1=p_2
-                p_2=tee
+        p_p1=self.player.p_p[1]
+        p_p2=self.player.p_p[2]
+        p_p3=self.player.p_p[3]
+        p_p4=self.player.p_p[4]
+        pt_p1=self.player.pt_p[1]
+        pt_p2=self.player.pt_p[2]
+        pt_p3=self.player.pt_p[3]
+        pt_p4=self.player.pt_p[4]
         return dict(
-            pt_1=i_1, pt_2=i_2, pt_3=i_3, pt_4=i_4,
-            p_1=p_1, p_2=p_2, p_3=p_3, p_4=p_4,
+            p_p1=p_p1, pt_p1=pt_p1,
+            p_p2=p_p2, pt_p2=pt_p2,
+            p_p3=p_p3, pt_p3=pt_p3,
+            p_p4=p_p4, pt_p4=pt_p4
         )
 
     #def is_displayed(self):

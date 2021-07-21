@@ -1,3 +1,4 @@
+from typing import List
 from otree.api import (
     models,
     widgets,
@@ -14,6 +15,9 @@ from random import randint
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 from string import digits, ascii_lowercase
+
+from otree.models import player
+
 
 author = 'Estephany y Yadira'
 
@@ -94,7 +98,7 @@ def make_field(label):
     )
 
 class Player(BasePlayer):
-
+    
     num_ID = models.StringField(label='1. ¿Cuál es tu número ID')
     age = models.IntegerField(label='3. ¿Cuál es tu edad?', min=13, max=40)
     gender = models.StringField(
@@ -152,6 +156,47 @@ class Player(BasePlayer):
     total_answers_correct_R1 = models.IntegerField()
 
 
+    def rank_R1(self):
+        i_1=0 ##puestos 
+        i_2=0
+        i_3=0
+        i_4=0
+        r_1=0 ##id player
+        r_2=0
+        r_3=0
+        r_4=0
+
+        for p in self.group.get_players(): 
+            if p.total_answers_correct_R1 > i_4:
+                i_4=p.total_answers_correct_R1
+                r_4=p
+            if i_4 > i_3:
+                temp=i_3
+                i_3=i_4
+                i_4=temp
+                tee=r_3
+                r_3=r_4
+                r_4=tee
+            if i_3 > i_2:
+                temp=i_2
+                i_2=i_3
+                i_3=temp
+                tee=r_2
+                r_2=r_3
+                r_3=tee
+            if i_2 > i_1:
+                temp=i_1
+                i_1=i_2
+                i_2=temp
+                tee=r_1
+                r_1=r_2
+                r_2=tee
+
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+
+    pt_p, p_p = rank_R1(self=player)
+
+
     def is_correct_R2(self):
         if self.answer_R2 == self.subsession.total_zeroes:
             self.answer_correct_R2 = 1
@@ -162,16 +207,6 @@ class Player(BasePlayer):
     answer_correct_R2 = models.BooleanField()
     total_answers_correct_R2 = models.IntegerField()
 
-
-#    p_1=models.IntegerField()
-#    p_2=models.IntegerField()
-#    p_3=models.IntegerField()
-#    p_4=models.IntegerField()
-
-#    pt_1=models.IntegerField()
-#    pt_2=models.IntegerField()
-#    pt_3=models.IntegerField()
-#    pt_4=models.IntegerField()
 
 
 #            elif i_3==i_2:
