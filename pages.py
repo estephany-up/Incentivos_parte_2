@@ -1,8 +1,10 @@
+from otree.models import player
 from incentivos.models import Subsession
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants, Player, Group
 import time, random
+
 
 class MyPage(Page):
     pass
@@ -67,22 +69,35 @@ class Tarea_conteo_R1(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2
+        return self.session.vars['expiry'] - time.time() > 2 
+
 
     def before_next_page(self):
-        self.player.is_correct_R1()
-        player = self.player
-        timeout_happened = self.timeout_happened
-        if timeout_happened:
-             player.participant.vars["timedout_realeffort_R1"] = True
+        #self.player.is_correct_R1()
+        #player = self.player
+        if self.player.answer_R1 == self.subsession.total_zeroes:
+            self.player.answer_correct_R1 = 1
+        elif self.player.answer_R1 == None:
+            self.player.answer_correct_R1 = 0
         else:
-            player.participant.vars["timedout_realeffort_R1"] = False
-        if self.player.round_number == Constants.num_rounds: #creo que esto no es necesario
-            player_in_all_rounds = self.player.in_all_rounds()
-            self.player.total_answers_correct_R1 = sum([p.answer_correct_R1 for p in player_in_all_rounds])
-            self.player.participant.vars["realeffort_correct_R1"] = sum([p.answer_correct_R1 for p in player_in_all_rounds])
-            self.session.vars['realeffort_possible_R1'] = Constants.num_rounds
-            print(self.player.participant.vars['realeffort_correct_R1'])
+            self.player.answer_correct_R1 = 0
+        #timeout_happened = self.timeout_happened
+        #if timeout_happened:
+        #    self.player.participant.vars['timedout_realeffort_R1'] = True
+        #else:
+        #    self.player.participant.vars['timedout_realeffort_R1'] = False
+        #if self.round_number == Constants.num_rounds: #creo que esto no es necesario
+        #if self.round_number < Constants.num_rounds:
+        player_in_all_rounds = self.player.in_all_rounds()
+        self.player.total_answers_correct_R1 = sum([p.answer_correct_R1 for p in player_in_all_rounds])
+        #if self.round_number == Constants.num_rounds:
+           # player_last=self.player.in_round(Constants.num_rounds)
+        #    self.player.total_answers_correct_R1=Player.total_answers_correct_R1 + Player.answer_correct_R1
+
+            #self.player.participant.vars['realeffort_correct_R1'] = sum([p.answer_correct_R1 for p in player_in_all_rounds])
+            #self.session.vars['realeffort_possible_R1'] = Constants.num_rounds
+            #print(self.player.participant.vars['realeffort_correct_R1'])
+        return self.player.total_answers_correct_R1
 
 
 class Ranking_conteo_R1(Page):
@@ -90,19 +105,21 @@ class Ranking_conteo_R1(Page):
         return self.round_number == Constants.num_rounds
     
     def vars_for_template(self):
-        p_p1=self.player.p_p[1]
-        p_p2=self.player.p_p[2]
-        p_p3=self.player.p_p[3]
-        p_p4=self.player.p_p[4]
-        pt_p1=self.player.pt_p[1]
-        pt_p2=self.player.pt_p[2]
-        pt_p3=self.player.pt_p[3]
-        pt_p4=self.player.pt_p[4]
-        return dict(
-            p_p1=p_p1, pt_p1=pt_p1,
-            p_p2=p_p2, pt_p2=pt_p2,
-            p_p3=p_p3, pt_p3=pt_p3,
-            p_p4=p_p4, pt_p4=pt_p4
+        p_1=self.player.total_answers_correct_R1
+    #    pt_p, p_p = self.group.rank_R1()
+    #    p_p1=p_p[1]
+    #    p_p2=p_p[2]
+    #    p_p3=p_p[3]
+    #    p_p4=p_p[4]
+    #    pt_p1=pt_p[1]
+    #    pt_p2=pt_p[2]
+    #    pt_p3=pt_p[3]
+    #    pt_p4=pt_p[4]
+        return dict(p_1=p_1
+    #        p_p1=p_p1, pt_p1=pt_p1,
+    #        p_p2=p_p2, pt_p2=pt_p2,
+    #        p_p3=p_p3, pt_p3=pt_p3,
+    #        p_p4=p_p4, pt_p4=pt_p4
         )
 
     #def is_displayed(self):

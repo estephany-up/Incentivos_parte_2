@@ -87,7 +87,47 @@ class Subsession(BaseSubsession):
     row10 = models.CharField()
 
 class Group(BaseGroup):
-   treatment=models.StringField()
+    treatment=models.StringField()
+    
+    def rank_R1(self):
+        i_1=0 ##puestos 
+        i_2=0
+        i_3=0
+        i_4=0
+        r_1=0 ##id player
+        r_2=0
+        r_3=0
+        r_4=0
+
+        for p in self.get_players(): 
+            if p.total_answers_correct_R1 > i_4:
+                i_4=p.total_answers_correct_R1
+                r_4=p
+            if i_4 > i_3:
+                temp=i_3
+                i_3=i_4
+                i_4=temp
+                tee=r_3
+                r_3=r_4
+                r_4=tee
+            if i_3 > i_2:
+                temp=i_2
+                i_2=i_3
+                i_3=temp
+                tee=r_2
+                r_2=r_3
+                r_3=tee
+            if i_2 > i_1:
+                temp=i_1
+                i_1=i_2
+                i_2=temp
+                tee=r_1
+                r_1=r_2
+                r_2=tee
+
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+
+    #pt_p, p_p = rank_R1()
 
 
 def make_field(label):
@@ -145,56 +185,18 @@ class Player(BasePlayer):
     q20 = make_field('El incentivo monetario ofrecido no está a la altura de mis expectativas')
     
 
-    def is_correct_R1(self):
-        if self.answer_R1 == self.subsession.total_zeroes:
-            self.answer_correct_R1 = 1
-        else:
-            self.answer_correct_R1 = 0
+    #def is_correct_R1(self):
+    #    if self.answer_R1 == Subsession.total_zeroes:
+    #        self.answer_correct_R1 = 1
+    #    else:
+    #       self.answer_correct_R1 = 0
+    
+    #def total_R1(self):
+    #    self.total_answers_correct_R1=sum([p.answer_correct_R1 for p in self.in_all_rounds()])
 
-    answer_R1 = models.IntegerField(verbose_name="""""", blank = True)
+    answer_R1 = models.IntegerField(verbose_name="""""")
     answer_correct_R1 = models.BooleanField()
     total_answers_correct_R1 = models.IntegerField()
-
-
-    def rank_R1(self):
-        i_1=0 ##puestos 
-        i_2=0
-        i_3=0
-        i_4=0
-        r_1=0 ##id player
-        r_2=0
-        r_3=0
-        r_4=0
-
-        for p in self.group.get_players(): 
-            if p.total_answers_correct_R1 > i_4:
-                i_4=p.total_answers_correct_R1
-                r_4=p
-            if i_4 > i_3:
-                temp=i_3
-                i_3=i_4
-                i_4=temp
-                tee=r_3
-                r_3=r_4
-                r_4=tee
-            if i_3 > i_2:
-                temp=i_2
-                i_2=i_3
-                i_3=temp
-                tee=r_2
-                r_2=r_3
-                r_3=tee
-            if i_2 > i_1:
-                temp=i_1
-                i_1=i_2
-                i_2=temp
-                tee=r_1
-                r_1=r_2
-                r_2=tee
-
-        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
-
-    pt_p, p_p = rank_R1(self=player)
 
 
     def is_correct_R2(self):
