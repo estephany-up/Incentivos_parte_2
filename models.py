@@ -64,7 +64,6 @@ class Subsession(BaseSubsession):
         f=random.choice(nums)
         Player.ID_code=a+b+c+d+e+f
         
-
 ######falta juntar el tratamiento par ambas apps
         if self.round_number==1:
             for g in self.get_groups():
@@ -91,10 +90,220 @@ class Subsession(BaseSubsession):
 class Group(BaseGroup):
     treatment=models.StringField()
 
-    def total(self):
+    ### Funciones para PRUEBA ###
+    def total_p(self):
+        for player in self.get_players():
+            player_in_all_rounds = player.in_all_rounds()
+            player.total_answers_correct_p=sum([p.answer_correct_p for p in player_in_all_rounds])
+    
+    def rank_p(self):
+        i_1=0 ##puestos 
+        i_2=0
+        i_3=0
+        i_4=0
+        r_1=0 ##id player
+        r_2=0
+        r_3=0
+        r_4=0
+
+        for p in self.get_players(): 
+            if p.total_answers_correct_p >= i_4:
+                i_4=p.total_answers_correct_p
+                r_4=p.id_in_group
+            if i_4 >= i_3:
+                temp=i_3
+                i_3=i_4
+                i_4=temp
+                tee=r_3
+                r_3=r_4
+                r_4=tee
+            if i_3 >= i_2:
+                temp=i_2
+                i_2=i_3
+                i_3=temp
+                tee=r_2
+                r_2=r_3
+                r_3=tee
+            if i_2 >= i_1:
+                temp=i_1
+                i_1=i_2
+                i_2=temp
+                tee=r_1
+                r_1=r_2
+                r_2=tee
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+
+    ### Funciones para R1 ###
+    def total_R1(self):
         for player in self.get_players():
             player_in_all_rounds = player.in_all_rounds()
             player.total_answers_correct_R1=sum([p.answer_correct_R1 for p in player_in_all_rounds])
+    
+    def rank_R1(self):
+        i_1=0 ##puestos 
+        i_2=0
+        i_3=0
+        i_4=0
+        r_1=0 ##id player
+        r_2=0
+        r_3=0
+        r_4=0
+
+        for p in self.get_players(): 
+            if p.total_answers_correct_R1 >= i_4:  #CHEQUEAR ESTOOO
+                i_4=p.total_answers_correct_R1
+                r_4=p.id_in_group
+            if i_4 >= i_3:
+                temp=i_3
+                i_3=i_4
+                i_4=temp
+                tee=r_3
+                r_3=r_4
+                r_4=tee
+            if i_3 >= i_2:
+                temp=i_2
+                i_2=i_3
+                i_3=temp
+                tee=r_2
+                r_2=r_3
+                r_3=tee
+            if i_2 >= i_1:
+                temp=i_1
+                i_1=i_2
+                i_2=temp
+                tee=r_1
+                r_1=r_2
+                r_2=tee
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+
+    ### Funciones para R2 ###
+    def total_R2(self):
+        for player in self.get_players():
+            player_in_all_rounds = player.in_all_rounds()
+            player.total_answers_correct_R2=sum([p.answer_correct_R2 for p in player_in_all_rounds])
+    
+    def rank_R2(self):
+        i_1=0 ##puestos 
+        i_2=0
+        i_3=0
+        i_4=0
+        r_1=0 ##id player
+        r_2=0
+        r_3=0
+        r_4=0
+
+        for p in self.get_players(): 
+            if p.total_answers_correct_R2 >= i_4:
+                i_4=p.total_answers_correct_R2
+                r_4=p.id_in_group
+            if i_4 >= i_3:
+                temp=i_3
+                i_3=i_4
+                i_4=temp
+                tee=r_3
+                r_3=r_4
+                r_4=tee
+            if i_3 >= i_2:
+                temp=i_2
+                i_2=i_3
+                i_3=temp
+                tee=r_2
+                r_2=r_3
+                r_3=tee
+            if i_2 >= i_1:
+                temp=i_1
+                i_1=i_2
+                i_2=temp
+                tee=r_1
+                r_1=r_2
+                r_2=tee
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+    
+    ### Funciones para R3 ###
+    def total_R3(self):
+        for player in self.get_players():
+            player_in_all_rounds = player.in_all_rounds()
+            player.total_answers_correct_R3=sum([p.answer_correct_R3 for p in player_in_all_rounds])
+    
+    def rank_R3(self):
+        i_1=0 ##puestos 
+        i_2=0
+        i_3=0
+        i_4=0
+        r_1=0 ##id player
+        r_2=0
+        r_3=0
+        r_4=0
+
+        for p in self.get_players(): 
+            if p.total_answers_correct_R3 >= i_4:
+                i_4=p.total_answers_correct_R3
+                r_4=p.id_in_group
+            if i_4 >= i_3:
+                temp=i_3
+                i_3=i_4
+                i_4=temp
+                tee=r_3
+                r_3=r_4
+                r_4=tee
+            if i_3 >= i_2:
+                temp=i_2
+                i_2=i_3
+                i_3=temp
+                tee=r_2
+                r_2=r_3
+                r_3=tee
+            if i_2 >= i_1:
+                temp=i_1
+                i_1=i_2
+                i_2=temp
+                tee=r_1
+                r_1=r_2
+                r_2=tee
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+    
+    ### Funciones para R4 ###
+    def total_R4(self):
+        for player in self.get_players():
+            player_in_all_rounds = player.in_all_rounds()
+            player.total_answers_correct_R4=sum([p.answer_correct_R4 for p in player_in_all_rounds])
+    
+    def rank_R4(self):
+        i_1=0 ##puestos 
+        i_2=0
+        i_3=0
+        i_4=0
+        r_1=0 ##id player
+        r_2=0
+        r_3=0
+        r_4=0
+
+        for p in self.get_players(): 
+            if p.total_answers_correct_R4 >= i_4:
+                i_4=p.total_answers_correct_R4
+                r_4=p.id_in_group
+            if i_4 >= i_3:
+                temp=i_3
+                i_3=i_4
+                i_4=temp
+                tee=r_3
+                r_3=r_4
+                r_4=tee
+            if i_3 >= i_2:
+                temp=i_2
+                i_2=i_3
+                i_3=temp
+                tee=r_2
+                r_2=r_3
+                r_3=tee
+            if i_2 >= i_1:
+                temp=i_1
+                i_1=i_2
+                i_2=temp
+                tee=r_1
+                r_1=r_2
+                r_2=tee
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
 
 
 def make_field(label):
@@ -152,6 +361,10 @@ class Player(BasePlayer):
     q19 = make_field('Los incentivos monetarios ofrecidos coinciden con mi esfuerzo en las tareas realizadas')
     q20 = make_field('El incentivo monetario ofrecido no está a la altura de mis expectativas')
 
+    ##variables para obtener puntajes
+    answer_p = models.IntegerField(verbose_name="""""", blank=True, initial=0)
+    answer_correct_p = models.IntegerField(initial=0)
+    total_answers_correct_p = models.IntegerField()
 
     answer_R1 = models.IntegerField(verbose_name="""""", blank=True, initial=0)
     answer_correct_R1 = models.IntegerField(initial=0)

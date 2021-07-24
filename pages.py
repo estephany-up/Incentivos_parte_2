@@ -73,8 +73,6 @@ class Tarea_conteo_R1(Page):
 
 
     def before_next_page(self):
-        #self.player.is_correct_R1()
-        #player = self.player
         if self.player.answer_R1 == self.subsession.total_zeroes:
             self.player.answer_correct_R1 = 1
         elif self.player.answer_R1 == None:
@@ -97,75 +95,29 @@ class Tarea_conteo_R1(Page):
 class Wait_1(WaitPage):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
-    after_all_players_arrive='total'
+    after_all_players_arrive='total_R1'
 
 class Ranking_conteo_R1(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
     
     def vars_for_template(self):
-        #player_in_all_rounds = self.player.in_all_rounds()
-        #self.player.total_answers_correct_R1=sum([p.answer_correct_R1 for p in player_in_all_rounds])
-        #p_1=self.player.total_answers_correct_R1
-
-    #def rank_R1(self):
-        i_1=0 ##puestos 
-        i_2=0
-        i_3=0
-        i_4=0
-        r_1=0 ##id player
-        r_2=0
-        r_3=0
-        r_4=0
-
-        for p in self.group.get_players(): 
-            if p.total_answers_correct_R1 > i_4:
-                i_4=p.total_answers_correct_R1
-                r_4=p.id_in_group
-            if i_4 > i_3:
-                temp=i_3
-                i_3=i_4
-                i_4=temp
-                tee=r_3
-                r_3=r_4
-                r_4=tee
-            if i_3 > i_2:
-                temp=i_2
-                i_2=i_3
-                i_3=temp
-                tee=r_2
-                r_2=r_3
-                r_3=tee
-            if i_2 > i_1:
-                temp=i_1
-                i_1=i_2
-                i_2=temp
-                tee=r_1
-                r_1=r_2
-                r_2=tee
-
-        #return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
-    #    pt_p, p_p = self.group.rank_R1()
-    #    p_p1=p_p[1]
-    #    p_p2=p_p[2]
-    #    p_p3=p_p[3]
-    #    p_p4=p_p[4]
-    #    pt_p1=pt_p[1]
-    #    pt_p2=pt_p[2]
-    #    pt_p3=pt_p[3]
-    #    pt_p4=pt_p[4]
-        return dict(p_p1=r_1, p_p2=r_2, p_p3=r_3, p_p4=r_4,
-        pt_p1=i_1, pt_p2=i_2, pt_p3=i_3, pt_p4=i_4
-    #        p_p1=p_p1, pt_p1=pt_p1,
-    #        p_p2=p_p2, pt_p2=pt_p2,
-    #        p_p3=p_p3, pt_p3=pt_p3,
-    #        p_p4=p_p4, pt_p4=pt_p4
-        )
-
-    #def is_displayed(self):
-        #return self.player.id_in_group == 1 and self.player.waited_too_long == 0 and 
+        pt_p, p_p = self.group.rank_R1()
+        p_p1=p_p[0]
+        p_p2=p_p[1]
+        p_p3=p_p[2]
+        p_p4=p_p[3]
+        pt_p1=pt_p[0]
+        pt_p2=pt_p[1]
+        pt_p3=pt_p[2]
+        pt_p4=pt_p[3]
+        return dict(p_p1=p_p1, p_p2=p_p2, p_p3=p_p3, p_p4=p_p4,
+        pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
 
 class Tarea_conteo_R2(Page):
+    pass
+
+class Wait_2(WaitPage):
     pass
 
 class Ranking_conteo_R2(Page):
@@ -174,10 +126,16 @@ class Ranking_conteo_R2(Page):
 class Tarea_conteo_R3(Page):
     pass
 
+class Wait_3(WaitPage):
+    pass
+
 class Ranking_conteo_R3(Page):
     pass
 
 class Tarea_conteo_R4(Page):
+    pass
+
+class Wait_4(WaitPage):
     pass
 
 class Ranking_conteo_R4(Page):
@@ -192,6 +150,7 @@ class Encuesta_final(Page):
     'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10', 'q11','q12','q13',
     'q14','q15','q16','q17','q18','q19','q20',]
 
+
 class ResultsWaitPage(WaitPage):
     pass
 
@@ -203,14 +162,18 @@ page_sequence = [
     #MyPage,
     Instrucciones_conteo,
     #Prueba_conteo,
+    #Ranking_conteo_p
     Tarea_conteo_R1,
     Wait_1,
     Ranking_conteo_R1,
     #Tarea_conteo_R2,
+    #Wait_2,
     #Ranking_conteo_R2,
     #Tarea_conteo_R3,
+    #Wait_3,
     #Ranking_conteo_R3,
     #Tarea_conteo_R4,
+    #Wait_4,
     #Ranking_conteo_R4,
     #Encuesta_final, 
     #ResultsWaitPage, 
