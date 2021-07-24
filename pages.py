@@ -87,25 +87,64 @@ class Tarea_conteo_R1(Page):
         #else:
         #    self.player.participant.vars['timedout_realeffort_R1'] = False
         #if self.round_number == Constants.num_rounds: #creo que esto no es necesario
-        #if self.round_number < Constants.num_rounds:
-        player_in_all_rounds = self.player.in_all_rounds()
-        self.player.total_answers_correct_R1 = sum([p.answer_correct_R1 for p in player_in_all_rounds])
-        #if self.round_number == Constants.num_rounds:
-           # player_last=self.player.in_round(Constants.num_rounds)
-        #    self.player.total_answers_correct_R1=Player.total_answers_correct_R1 + Player.answer_correct_R1
-
+        #player_in_all_rounds = self.player.in_all_rounds()
+        #self.player.total_answers_correct_R1 = sum([p.answer_correct_R1 for p in player_in_all_rounds])
             #self.player.participant.vars['realeffort_correct_R1'] = sum([p.answer_correct_R1 for p in player_in_all_rounds])
             #self.session.vars['realeffort_possible_R1'] = Constants.num_rounds
             #print(self.player.participant.vars['realeffort_correct_R1'])
-        return self.player.total_answers_correct_R1
+        #return self.player.total_answers_correct_R1
 
+class Wait_1(WaitPage):
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+    after_all_players_arrive='total'
 
 class Ranking_conteo_R1(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
     
     def vars_for_template(self):
-        p_1=self.player.total_answers_correct_R1
+        #player_in_all_rounds = self.player.in_all_rounds()
+        #self.player.total_answers_correct_R1=sum([p.answer_correct_R1 for p in player_in_all_rounds])
+        #p_1=self.player.total_answers_correct_R1
+
+    #def rank_R1(self):
+        i_1=0 ##puestos 
+        i_2=0
+        i_3=0
+        i_4=0
+        r_1=0 ##id player
+        r_2=0
+        r_3=0
+        r_4=0
+
+        for p in self.group.get_players(): 
+            if p.total_answers_correct_R1 > i_4:
+                i_4=p.total_answers_correct_R1
+                r_4=p.id_in_group
+            if i_4 > i_3:
+                temp=i_3
+                i_3=i_4
+                i_4=temp
+                tee=r_3
+                r_3=r_4
+                r_4=tee
+            if i_3 > i_2:
+                temp=i_2
+                i_2=i_3
+                i_3=temp
+                tee=r_2
+                r_2=r_3
+                r_3=tee
+            if i_2 > i_1:
+                temp=i_1
+                i_1=i_2
+                i_2=temp
+                tee=r_1
+                r_1=r_2
+                r_2=tee
+
+        #return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
     #    pt_p, p_p = self.group.rank_R1()
     #    p_p1=p_p[1]
     #    p_p2=p_p[2]
@@ -115,7 +154,8 @@ class Ranking_conteo_R1(Page):
     #    pt_p2=pt_p[2]
     #    pt_p3=pt_p[3]
     #    pt_p4=pt_p[4]
-        return dict(p_1=p_1
+        return dict(p_p1=r_1, p_p2=r_2, p_p3=r_3, p_p4=r_4,
+        pt_p1=i_1, pt_p2=i_2, pt_p3=i_3, pt_p4=i_4
     #        p_p1=p_p1, pt_p1=pt_p1,
     #        p_p2=p_p2, pt_p2=pt_p2,
     #        p_p3=p_p3, pt_p3=pt_p3,
@@ -164,6 +204,7 @@ page_sequence = [
     Instrucciones_conteo,
     #Prueba_conteo,
     Tarea_conteo_R1,
+    Wait_1,
     Ranking_conteo_R1,
     #Tarea_conteo_R2,
     #Ranking_conteo_R2,
