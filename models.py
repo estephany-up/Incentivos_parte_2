@@ -14,6 +14,7 @@ from random import randint
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 from string import digits, ascii_lowercase
+from otree.db.models import IntegerField
 
 from otree.models import player
 
@@ -131,7 +132,7 @@ class Group(BaseGroup):
                 tee=r_1
                 r_1=r_2
                 r_2=tee
-        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4],
 
     ### Funciones para R1 ###
     def total_R1(self):
@@ -174,6 +175,9 @@ class Group(BaseGroup):
                 tee=r_1
                 r_1=r_2
                 r_2=tee
+        for p in self.get_players():
+            if p.id_in_group==r_1:
+                p.pay=Constants.point*i_1
         return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
 
     ### Funciones para R2 ###
@@ -315,6 +319,7 @@ def make_field(label):
 
 
 class Player(BasePlayer):
+    pay=models.IntegerField(initial=0)
     ID_code= models.CharField() ## he creado ID, pero preguntar si de puede conseguir el participant code
     num_ID = models.StringField(label='1. ¿Cuál es tu número ID')
     age = models.IntegerField(label='3. ¿Cuál es tu edad?', min=13, max=40)
@@ -371,15 +376,15 @@ class Player(BasePlayer):
     total_answers_correct_R1 = models.IntegerField()
 
     answer_R2 = models.IntegerField(verbose_name="""""", blank = True, initial=0)
-    answer_correct_R2 = models.BooleanField()
+    answer_correct_R2 = models.IntegerField(initial=0)
     total_answers_correct_R2 = models.IntegerField()
 
     answer_R3 = models.IntegerField(verbose_name="""""", blank = True, initial=0)
-    answer_correct_R3 = models.BooleanField()
+    answer_correct_R3 = models.IntegerField(initial=0)
     total_answers_correct_R3 = models.IntegerField()
 
     answer_R4 = models.IntegerField(verbose_name="""""", blank = True, initial=0)
-    answer_correct_R4 = models.BooleanField()
+    answer_correct_R4 = models.IntegerField(initial=0)
     total_answers_correct_R4 = models.IntegerField()
   
 

@@ -1,0 +1,50 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}Ranking - ronda 2{% endblock %}
+{{% block content %}
+<div class="instructions well well-lg">
+
+    <p>
+        El puntaje obtenido por cada participante del grupo en esta ronda se muestra en la siguiente tabla:
+             
+    </p>
+
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:12px;
+          overflow:hidden;padding:10px 10px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:12px;
+          font-weight:normal;overflow:hidden;padding:10px 10px;word-break:normal;}
+        .tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
+        
+        </style>
+        <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-9wq8"> ID del participante </th>
+            <th class="tg-9wq8"> Puntaje </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-9wq8"> Participante {{ p_p1 }} </td>
+            <td class="tg-9wq8"> {{ pt_p1 }} </td>
+          </tr>
+          <tr>
+            <td class="tg-9wq8"> Participante {{ p_p2 }} </td>
+            <td class="tg-9wq8"> {{ pt_p2 }} </td>
+          </tr>
+          <tr>
+            <td class="tg-9wq8"> Participante {{ p_p3 }} </td>
+            <td class="tg-9wq8"> {{ pt_p3 }} </td>
+          </tr>
+          <tr>
+            <td class="tg-9wq8"> Participante {{ p_p4 }} </td>
+            <td class="tg-9wq8"> {{ pt_p4 }} </td>
+          </tr>
+        </tbody>
+        </table>
+            
+</div>
+{% next_button %}
+{% endblock %}
