@@ -32,13 +32,36 @@ class Prueba_conteo(Page):
     timer_text = 'Tiempo que le falta para completar la ronda: '
     timeout_seconds = Constants.task_time_c_p
 
+    form_model = "player"
+    form_fields = ["answer_p"]
+
+    def vars_for_template(self):
+        return {
+            'row1' : self.subsession.row1,
+            'row2' : self.subsession.row2,
+            'row3' : self.subsession.row3,
+            'row4' : self.subsession.row4,
+            'row5' : self.subsession.row5,
+            'row6' : self.subsession.row6,
+            'row7' : self.subsession.row7,
+            'row8' : self.subsession.row8,
+            'row9' : self.subsession.row9,
+            'row10' : self.subsession.row10,
+        }
+    
+    def get_timeout_seconds(self):
+        return self.session.vars['expiry'] - time.time()
+
+    def is_displayed(self):
+        return self.session.vars['expiry'] - time.time() > 2 
+
     def before_next_page(self):
-        p1 = self.group.get_player_by_id(1)
-        treatment = p1.participant.vars['group_treatment']
-        if treatment=='C' or treatment=='T1':
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        if self.player.answer_p == self.subsession.total_zeroes:
+            self.player.answer_correct_p = 1
+        elif self.player.answer_p == None:
+            self.player.answer_correct_p = 0
         else:
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
+            self.player.answer_correct_p = 0
 
 class Wait_p(WaitPage):
     def is_displayed(self):
@@ -61,6 +84,14 @@ class Ranking_conteo_p(Page):
         pt_p4=pt_p[3]
         return dict(p_p1=p_p1, p_p2=p_p2, p_p3=p_p3, p_p4=p_p4,
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
+
+    def before_next_page(self):
+        p1 = self.group.get_player_by_id(1)
+        treatment = p1.participant.vars['group_treatment']
+        if treatment=='C' or treatment=='T1':
+            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        else:
+            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
 
 class Tarea_conteo_R1(Page):    
     if Group.treatment=='C' or Group.treatment=='T1':
@@ -122,6 +153,14 @@ class Ranking_conteo_R1(Page):
         pt_p4=pt_p[3]
         return dict(p_p1=p_p1, p_p2=p_p2, p_p3=p_p3, p_p4=p_p4,
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
+    
+    def before_next_page(self):
+        p1 = self.group.get_player_by_id(1)
+        treatment = p1.participant.vars['group_treatment']
+        if treatment=='C' or treatment=='T1':
+            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        else:
+            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
 
 class Tarea_conteo_R2(Page):
     if Group.treatment=='C' or Group.treatment=='T1':
@@ -183,6 +222,14 @@ class Ranking_conteo_R2(Page):
         pt_p4=pt_p[3]
         return dict(p_p1=p_p1, p_p2=p_p2, p_p3=p_p3, p_p4=p_p4,
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
+    
+    def before_next_page(self):
+        p1 = self.group.get_player_by_id(1)
+        treatment = p1.participant.vars['group_treatment']
+        if treatment=='C' or treatment=='T1':
+            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        else:
+            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
 
 class Tarea_conteo_R3(Page):
     if Group.treatment=='C' or Group.treatment=='T1':
@@ -244,6 +291,14 @@ class Ranking_conteo_R3(Page):
         pt_p4=pt_p[3]
         return dict(p_p1=p_p1, p_p2=p_p2, p_p3=p_p3, p_p4=p_p4,
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
+    
+    def before_next_page(self):
+        p1 = self.group.get_player_by_id(1)
+        treatment = p1.participant.vars['group_treatment']
+        if treatment=='C' or treatment=='T1':
+            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        else:
+            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
 
 class Tarea_conteo_R4(Page):
     if Group.treatment=='C' or Group.treatment=='T1':
@@ -330,22 +385,22 @@ class Results(Page):
 page_sequence = [
     #MyPage,
     Instrucciones_conteo,
-    #Prueba_conteo,
-    #Wait_p,
-    #Ranking_conteo_p,
+    Prueba_conteo,
+    Wait_p,
+    Ranking_conteo_p,
     Tarea_conteo_R1,
     Wait_1,
     Ranking_conteo_R1,
-    #Tarea_conteo_R2,
-    #Wait_2,
-    #Ranking_conteo_R2,
-    #Tarea_conteo_R3,
-    #Wait_3,
-    #Ranking_conteo_R3,
-    #Tarea_conteo_R4,
-    #Wait_4,
-    #Ranking_conteo_R4,
-    #Encuesta_final, 
+    Tarea_conteo_R2,
+    Wait_2,
+    Ranking_conteo_R2,
+    Tarea_conteo_R3,
+    Wait_3,
+    Ranking_conteo_R3,
+    Tarea_conteo_R4,
+    Wait_4,
+    Ranking_conteo_R4,
+    Encuesta_final, 
     #ResultsWaitPage, 
     #Results
     ]

@@ -132,7 +132,7 @@ class Group(BaseGroup):
                 tee=r_1
                 r_1=r_2
                 r_2=tee
-        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4],
+        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
 
     ### Funciones para R1 ###
     def total_R1(self):
