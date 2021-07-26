@@ -37,20 +37,84 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def creating_session(self):    
-        self.row1 = ' '.join(random.choices(["0","1"], k=10))
-        self.row2 = ' '.join(random.choices(["0","1"], k=10))
-        self.row3 = ' '.join(random.choices(["0","1"], k=10))
-        self.row4 = ' '.join(random.choices(["0","1"], k=10))
-        self.row5 = ' '.join(random.choices(["0","1"], k=10))
-        self.row6 = ' '.join(random.choices(["0","1"], k=10))
-        self.row7 = ' '.join(random.choices(["0","1"], k=10))
-        self.row8 = ' '.join(random.choices(["0","1"], k=10))
-        self.row9 = ' '.join(random.choices(["0","1"], k=10))
-        self.row10 = ' '.join(random.choices(["0","1"], k=10))
-        self.total_zeroes = sum([self.row1.count("0"), self.row2.count("0"), self.row3.count("0"),
-                               self.row4.count("0"), self.row5.count("0"), self.row6.count("0"),
-                               self.row7.count("0"), self.row8.count("0"), self.row9.count("0"), 
-                               self.row10.count("0"),
+        self.row1_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row2_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row3_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row4_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row5_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row6_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row7_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row8_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row9_p = ' '.join(random.choices(["0","1"], k=10))
+        self.row10_p = ' '.join(random.choices(["0","1"], k=10))
+        self.total_zeroes_p = sum([self.row1_p.count("0"), self.row2_p.count("0"), self.row3_p.count("0"),
+                               self.row4_p.count("0"), self.row5_p.count("0"), self.row6_p.count("0"),
+                               self.row7_p.count("0"), self.row8_p.count("0"), self.row9_p.count("0"), 
+                               self.row10_p.count("0"),
+                               ])
+
+        self.row1_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row2_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row3_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row4_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row5_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row6_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row7_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row8_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row9_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.row10_R1 = ' '.join(random.choices(["0","1"], k=10))
+        self.total_zeroes_R1 = sum([self.row1_R1.count("0"), self.row2_R1.count("0"), self.row3_R1.count("0"),
+                               self.row4_R1.count("0"), self.row5_R1.count("0"), self.row6_R1.count("0"),
+                               self.row7_R1.count("0"), self.row8_R1.count("0"), self.row9_R1.count("0"), 
+                               self.row10_R1.count("0"),
+                               ])
+
+        self.row1_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row2_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row3_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row4_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row5_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row6_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row7_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row8_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row9_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.row10_R2 = ' '.join(random.choices(["0","1"], k=10))
+        self.total_zeroes_R2 = sum([self.row1_R2.count("0"), self.row2_R2.count("0"), self.row3_R2.count("0"),
+                               self.row4_R2.count("0"), self.row5_R2.count("0"), self.row6_R2.count("0"),
+                               self.row7_R2.count("0"), self.row8_R2.count("0"), self.row9_R2.count("0"), 
+                               self.row10_R2.count("0"),
+                               ])
+
+        self.row1_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row2_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row3_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row4_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row5_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row6_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row7_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row8_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row9_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.row10_R3 = ' '.join(random.choices(["0","1"], k=10))
+        self.total_zeroes_R3 = sum([self.row1_R3.count("0"), self.row2_R3.count("0"), self.row3_R3.count("0"),
+                               self.row4_R3.count("0"), self.row5_R3.count("0"), self.row6_R3.count("0"),
+                               self.row7_R3.count("0"), self.row8_R3.count("0"), self.row9_R3.count("0"), 
+                               self.row10_R3.count("0"),
+                               ])
+
+        self.row1_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row2_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row3_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row4_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row5_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row6_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row7_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row8_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row9_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.row10_R4 = ' '.join(random.choices(["0","1"], k=10))
+        self.total_zeroes_R4 = sum([self.row1_R4.count("0"), self.row2_R4.count("0"), self.row3_R4.count("0"),
+                               self.row4_R4.count("0"), self.row5_R4.count("0"), self.row6_R4.count("0"),
+                               self.row7_R4.count("0"), self.row8_R4.count("0"), self.row9_R4.count("0"), 
+                               self.row10_R4.count("0"),
                                ])
         
 
@@ -75,18 +139,70 @@ class Subsession(BaseSubsession):
                 print('Treatment:', p1.participant.vars['group_treatment'])
         
 
-    total_zeroes = models.IntegerField()
+    total_zeroes_p = models.IntegerField()
 
-    row1 = models.CharField()
-    row2 = models.CharField()
-    row3 = models.CharField()
-    row4 = models.CharField()
-    row5 = models.CharField()
-    row6 = models.CharField()
-    row7 = models.CharField()
-    row8 = models.CharField()
-    row9 = models.CharField()
-    row10 = models.CharField()
+    row1_p = models.CharField()
+    row2_p = models.CharField()
+    row3_p = models.CharField()
+    row4_p = models.CharField()
+    row5_p = models.CharField()
+    row6_p = models.CharField()
+    row7_p = models.CharField()
+    row8_p = models.CharField()
+    row9_p = models.CharField()
+    row10_p = models.CharField()
+
+    total_zeroes_R1 = models.IntegerField()
+
+    row1_R1 = models.CharField()
+    row2_R1 = models.CharField()
+    row3_R1 = models.CharField()
+    row4_R1 = models.CharField()
+    row5_R1 = models.CharField()
+    row6_R1 = models.CharField()
+    row7_R1 = models.CharField()
+    row8_R1 = models.CharField()
+    row9_R1 = models.CharField()
+    row10_R1 = models.CharField()
+
+    total_zeroes_R2 = models.IntegerField()
+
+    row1_R2 = models.CharField()
+    row2_R2 = models.CharField()
+    row3_R2 = models.CharField()
+    row4_R2 = models.CharField()
+    row5_R2 = models.CharField()
+    row6_R2 = models.CharField()
+    row7_R2 = models.CharField()
+    row8_R2 = models.CharField()
+    row9_R2 = models.CharField()
+    row10_R2 = models.CharField()
+
+    total_zeroes_R3 = models.IntegerField()
+
+    row1_R3 = models.CharField()
+    row2_R3 = models.CharField()
+    row3_R3 = models.CharField()
+    row4_R3 = models.CharField()
+    row5_R3 = models.CharField()
+    row6_R3 = models.CharField()
+    row7_R3 = models.CharField()
+    row8_R3 = models.CharField()
+    row9_R3 = models.CharField()
+    row10_R3 = models.CharField()
+
+    total_zeroes_R4 = models.IntegerField()
+
+    row1_R4 = models.CharField()
+    row2_R4 = models.CharField()
+    row3_R4 = models.CharField()
+    row4_R4 = models.CharField()
+    row5_R4 = models.CharField()
+    row6_R4 = models.CharField()
+    row7_R4 = models.CharField()
+    row8_R4 = models.CharField()
+    row9_R4 = models.CharField()
+    row10_R4 = models.CharField()
 
 class Group(BaseGroup):
     treatment=models.StringField()
@@ -151,7 +267,7 @@ class Group(BaseGroup):
         r_4=0
 
         for p in self.get_players(): 
-            if p.total_answers_correct_R1 >= i_4:  #CHEQUEAR ESTOOO
+            if p.total_answers_correct_R1 >= i_4: 
                 i_4=p.total_answers_correct_R1
                 r_4=p.id_in_group
             if i_4 >= i_3:

@@ -37,16 +37,16 @@ class Prueba_conteo(Page):
 
     def vars_for_template(self):
         return {
-            'row1' : self.subsession.row1,
-            'row2' : self.subsession.row2,
-            'row3' : self.subsession.row3,
-            'row4' : self.subsession.row4,
-            'row5' : self.subsession.row5,
-            'row6' : self.subsession.row6,
-            'row7' : self.subsession.row7,
-            'row8' : self.subsession.row8,
-            'row9' : self.subsession.row9,
-            'row10' : self.subsession.row10,
+            'row1' : self.subsession.row1_p,
+            'row2' : self.subsession.row2_p,
+            'row3' : self.subsession.row3_p,
+            'row4' : self.subsession.row4_p,
+            'row5' : self.subsession.row5_p,
+            'row6' : self.subsession.row6_p,
+            'row7' : self.subsession.row7_p,
+            'row8' : self.subsession.row8_p,
+            'row9' : self.subsession.row9_p,
+            'row10' : self.subsession.row10_p,
         }
     
     def get_timeout_seconds(self):
@@ -56,7 +56,7 @@ class Prueba_conteo(Page):
         return self.session.vars['expiry'] - time.time() > 2 
 
     def before_next_page(self):
-        if self.player.answer_p == self.subsession.total_zeroes:
+        if self.player.answer_p == self.subsession.total_zeroes_p:
             self.player.answer_correct_p = 1
         elif self.player.answer_p == None:
             self.player.answer_correct_p = 0
@@ -106,16 +106,16 @@ class Tarea_conteo_R1(Page):
 
     def vars_for_template(self):
         return {
-            'row1' : self.subsession.row1,
-            'row2' : self.subsession.row2,
-            'row3' : self.subsession.row3,
-            'row4' : self.subsession.row4,
-            'row5' : self.subsession.row5,
-            'row6' : self.subsession.row6,
-            'row7' : self.subsession.row7,
-            'row8' : self.subsession.row8,
-            'row9' : self.subsession.row9,
-            'row10' : self.subsession.row10,
+            'row1' : self.subsession.row1_R1,
+            'row2' : self.subsession.row2_R1,
+            'row3' : self.subsession.row3_R1,
+            'row4' : self.subsession.row4_R1,
+            'row5' : self.subsession.row5_R1,
+            'row6' : self.subsession.row6_R1,
+            'row7' : self.subsession.row7_R1,
+            'row8' : self.subsession.row8_R1,
+            'row9' : self.subsession.row9_R1,
+            'row10' : self.subsession.row10_R1,
         }
     
     def get_timeout_seconds(self):
@@ -125,7 +125,7 @@ class Tarea_conteo_R1(Page):
         return self.session.vars['expiry'] - time.time() > 2 
 
     def before_next_page(self):
-        if self.player.answer_R1 == self.subsession.total_zeroes:
+        if self.player.answer_R1 == self.subsession.total_zeroes_R1:
             self.player.answer_correct_R1 = 1
         elif self.player.answer_R1 == None:
             self.player.answer_correct_R1 = 0
@@ -175,16 +175,16 @@ class Tarea_conteo_R2(Page):
 
     def vars_for_template(self):
         return {
-            'row1' : self.subsession.row1,
-            'row2' : self.subsession.row2,
-            'row3' : self.subsession.row3,
-            'row4' : self.subsession.row4,
-            'row5' : self.subsession.row5,
-            'row6' : self.subsession.row6,
-            'row7' : self.subsession.row7,
-            'row8' : self.subsession.row8,
-            'row9' : self.subsession.row9,
-            'row10' : self.subsession.row10,
+            'row1' : self.subsession.row1_R2,
+            'row2' : self.subsession.row2_R2,
+            'row3' : self.subsession.row3_R2,
+            'row4' : self.subsession.row4_R2,
+            'row5' : self.subsession.row5_R2,
+            'row6' : self.subsession.row6_R2,
+            'row7' : self.subsession.row7_R2,
+            'row8' : self.subsession.row8_R2,
+            'row9' : self.subsession.row9_R2,
+            'row10' : self.subsession.row10_R2,
         }
     
     def get_timeout_seconds(self):
@@ -194,7 +194,7 @@ class Tarea_conteo_R2(Page):
         return self.session.vars['expiry'] - time.time() > 2 
 
     def before_next_page(self):
-        if self.player.answer_R2 == self.subsession.total_zeroes:
+        if self.player.answer_R2 == self.subsession.total_zeroes_R2:
             self.player.answer_correct_R2 = 1
         elif self.player.answer_R2 == None:
             self.player.answer_correct_R2 = 0
@@ -244,16 +244,16 @@ class Tarea_conteo_R3(Page):
 
     def vars_for_template(self):
         return {
-            'row1' : self.subsession.row1,
-            'row2' : self.subsession.row2,
-            'row3' : self.subsession.row3,
-            'row4' : self.subsession.row4,
-            'row5' : self.subsession.row5,
-            'row6' : self.subsession.row6,
-            'row7' : self.subsession.row7,
-            'row8' : self.subsession.row8,
-            'row9' : self.subsession.row9,
-            'row10' : self.subsession.row10,
+            'row1' : self.subsession.row1_R3,
+            'row2' : self.subsession.row2_R3,
+            'row3' : self.subsession.row3_R3,
+            'row4' : self.subsession.row4_R3,
+            'row5' : self.subsession.row5_R3,
+            'row6' : self.subsession.row6_R3,
+            'row7' : self.subsession.row7_R3,
+            'row8' : self.subsession.row8_R3,
+            'row9' : self.subsession.row9_R3,
+            'row10' : self.subsession.row10_R3,
         }
     
     def get_timeout_seconds(self):
@@ -263,7 +263,7 @@ class Tarea_conteo_R3(Page):
         return self.session.vars['expiry'] - time.time() > 2 
 
     def before_next_page(self):
-        if self.player.answer_R3 == self.subsession.total_zeroes:
+        if self.player.answer_R3 == self.subsession.total_zeroes_R3:
             self.player.answer_correct_R3 = 1
         elif self.player.answer_R3 == None:
             self.player.answer_correct_R3 = 0
@@ -313,16 +313,16 @@ class Tarea_conteo_R4(Page):
 
     def vars_for_template(self):
         return {
-            'row1' : self.subsession.row1,
-            'row2' : self.subsession.row2,
-            'row3' : self.subsession.row3,
-            'row4' : self.subsession.row4,
-            'row5' : self.subsession.row5,
-            'row6' : self.subsession.row6,
-            'row7' : self.subsession.row7,
-            'row8' : self.subsession.row8,
-            'row9' : self.subsession.row9,
-            'row10' : self.subsession.row10,
+            'row1' : self.subsession.row1_R4,
+            'row2' : self.subsession.row2_R4,
+            'row3' : self.subsession.row3_R4,
+            'row4' : self.subsession.row4_R4,
+            'row5' : self.subsession.row5_R4,
+            'row6' : self.subsession.row6_R4,
+            'row7' : self.subsession.row7_R4,
+            'row8' : self.subsession.row8_R4,
+            'row9' : self.subsession.row9_R4,
+            'row10' : self.subsession.row10_R4,
         }
     
     def get_timeout_seconds(self):
@@ -332,7 +332,7 @@ class Tarea_conteo_R4(Page):
         return self.session.vars['expiry'] - time.time() > 2 
 
     def before_next_page(self):
-        if self.player.answer_R4 == self.subsession.total_zeroes:
+        if self.player.answer_R4 == self.subsession.total_zeroes_R4:
             self.player.answer_correct_R4 = 1
         elif self.player.answer_R4 == None:
             self.player.answer_correct_R4 = 0
