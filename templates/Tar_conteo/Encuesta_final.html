@@ -10,13 +10,13 @@
         ¡ya que su respuesta puede ayudarnos enormemente!             
     </p>
 
-    {% formfield 'num_ID' %}
-    {% formfield 'gender' %}
-    {% formfield 'age' %}
-    {% formfield 'career' %}
-    {% formfield 'ciclo' %}
-    {% formfield 'escala' %}
-    {% formfield 'exp' %}
+        {% formfield 'num_ID' %}
+        {% formfield 'gender' %}
+        {% formfield 'age' %}
+        {% formfield 'career' %}
+        {% formfield 'ciclo' %}
+        {% formfield 'escala' %}
+        {% formfield 'exp' %}
 
     <p>
         8. Lea cada enunciado con atención y seleccione la opción verdadera para usted.
@@ -73,7 +73,7 @@
         </tr>
         
         {% for field in form %}
-        {% if player.treatment == 'T1' or player.treatment == 'T3' %}
+        {% if group.treatment == 'T1' or group.treatment == 'T3' %}
             {% if forloop.counter > 21 %} 
             <tr>
 

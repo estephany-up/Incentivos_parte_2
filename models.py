@@ -29,11 +29,11 @@ Experimento de incentivos (a partir de la tarea de conteo)
 class Constants(BaseConstants):
     name_in_url = 'Tar_conteo'
     players_per_group = 4
-    num_rounds = 20
+    num_rounds = 85
     task_time_c_p = 60  #prueba conteo
     task_time_c_s = 300 #conteo sin presión
     task_time_c_t = 180 #conteo con presión
-    point=c(1)
+    point=0.2
 
 class Subsession(BaseSubsession):
     def creating_session(self):    
@@ -117,7 +117,7 @@ class Subsession(BaseSubsession):
                                self.row10_R4.count("0"),
                                ])
         
-
+###REVISAR ID
         abcs=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ', 'o','p','q','r','s',
         't','u','v','w','x','y','z']
         nums=['1','2','3','4','5','6','7','8','9']
@@ -127,17 +127,7 @@ class Subsession(BaseSubsession):
         d=random.choice(nums)
         e=random.choice(nums)
         f=random.choice(nums)
-        Player.ID_code=a+b+c+d+e+f
-        
-######falta juntar el tratamiento par ambas apps
-        if self.round_number==1:
-            for g in self.get_groups():
-                p1=g.get_player_by_id(1)
-                p1.participant.vars['group_treatment']=random.choice(['C', 'T1', 'T2', 'T3'])
-                Group.treatment=p1.participant.vars['group_treatment']
-               #Group.treatment = random.choice(['C', 'T1', 'T2', 'T3'])
-                print('Treatment:', p1.participant.vars['group_treatment'])
-        
+        Player.ID_code=a+b+c+d+e+f        
 
     total_zeroes_p = models.IntegerField()
 
@@ -256,45 +246,59 @@ class Group(BaseGroup):
             player_in_all_rounds = player.in_all_rounds()
             player.total_answers_correct_R1=sum([p.answer_correct_R1 for p in player_in_all_rounds])
     
+    puesto1_R1=models.IntegerField()
+    puesto2_R1=models.IntegerField()
+    puesto3_R1=models.IntegerField()
+    puesto4_R1=models.IntegerField()
+
     def rank_R1(self):
         i_1=0 ##puestos 
         i_2=0
         i_3=0
         i_4=0
-        r_1=0 ##id player
-        r_2=0
-        r_3=0
-        r_4=0
+        #r_1=0 ##id player
+        #r_2=0
+        #r_3=0
+        #r_4=0
+        self.puesto1_R1=0
+        self.puesto2_R1=0
+        self.puesto3_R1=0
+        self.puesto4_R1=0
 
         for p in self.get_players(): 
             if p.total_answers_correct_R1 >= i_4: 
                 i_4=p.total_answers_correct_R1
-                r_4=p.id_in_group
+                self.puesto4_R1=p.id_in_group
             if i_4 >= i_3:
                 temp=i_3
                 i_3=i_4
                 i_4=temp
-                tee=r_3
-                r_3=r_4
-                r_4=tee
+                tee=self.puesto3_R1
+                self.puesto3_R1=self.puesto4_R1
+                self.puesto4_R1=tee
             if i_3 >= i_2:
                 temp=i_2
                 i_2=i_3
                 i_3=temp
-                tee=r_2
-                r_2=r_3
-                r_3=tee
+                tee=self.puesto2_R1
+                self.puesto2_R1=self.puesto3_R1
+                self.puesto3_R1=tee
             if i_2 >= i_1:
                 temp=i_1
                 i_1=i_2
                 i_2=temp
-                tee=r_1
-                r_1=r_2
-                r_2=tee
-        for p in self.get_players():
-            if p.id_in_group==r_1:
-                p.pay=Constants.point*i_1
-        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+                tee=self.puesto1_R1
+                self.puesto1_R1=self.puesto2_R1
+                self.puesto2_R1=tee
+        return [i_1, i_2, i_3, i_4], [self.puesto1_R1, self.puesto2_R1, self.puesto3_R1, self.puesto4_R1]
+        #[r_1, r_2, r_3, r_4]
+    
+    def pp_1(self):
+        for player in self.get_players():
+            if player.id_in_group == self.puesto1_R1:
+                player.payoff=player.total_answers_correct_R1*Constants.point
+            else:
+                player.payoff=0
 
     ### Funciones para R2 ###
     def total_R2(self):
@@ -302,42 +306,59 @@ class Group(BaseGroup):
             player_in_all_rounds = player.in_all_rounds()
             player.total_answers_correct_R2=sum([p.answer_correct_R2 for p in player_in_all_rounds])
     
+    puesto1_R2=models.IntegerField()
+    puesto2_R2=models.IntegerField()
+    puesto3_R2=models.IntegerField()
+    puesto4_R2=models.IntegerField()
+
     def rank_R2(self):
         i_1=0 ##puestos 
         i_2=0
         i_3=0
         i_4=0
-        r_1=0 ##id player
-        r_2=0
-        r_3=0
-        r_4=0
+        #r_1=0 ##id player
+        #r_2=0
+        #r_3=0
+        #r_4=0
+
+        self.puesto1_R2=0
+        self.puesto2_R2=0
+        self.puesto3_R2=0
+        self.puesto4_R2=0
 
         for p in self.get_players(): 
-            if p.total_answers_correct_R2 >= i_4:
+            if p.total_answers_correct_R2 >= i_4: 
                 i_4=p.total_answers_correct_R2
-                r_4=p.id_in_group
+                self.puesto4_R2=p.id_in_group
             if i_4 >= i_3:
                 temp=i_3
                 i_3=i_4
                 i_4=temp
-                tee=r_3
-                r_3=r_4
-                r_4=tee
+                tee=self.puesto3_R2
+                self.puesto3_R2=self.puesto4_R2
+                self.puesto4_R2=tee
             if i_3 >= i_2:
                 temp=i_2
                 i_2=i_3
                 i_3=temp
-                tee=r_2
-                r_2=r_3
-                r_3=tee
+                tee=self.puesto2_R2
+                self.puesto2_R2=self.puesto3_R2
+                self.puesto3_R2=tee
             if i_2 >= i_1:
                 temp=i_1
                 i_1=i_2
                 i_2=temp
-                tee=r_1
-                r_1=r_2
-                r_2=tee
-        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+                tee=self.puesto1_R2
+                self.puesto1_R2=self.puesto2_R2
+                self.puesto2_R2=tee
+        return [i_1, i_2, i_3, i_4], [self.puesto1_R2, self.puesto2_R2, self.puesto3_R2, self.puesto4_R2]
+    
+    def pp_2(self):
+        for player in self.get_players():
+            if player.id_in_group == self.puesto1_R2:
+                player.payoff=player.total_answers_correct_R2*Constants.point
+            else:
+                player.payoff=0
     
     ### Funciones para R3 ###
     def total_R3(self):
@@ -345,42 +366,59 @@ class Group(BaseGroup):
             player_in_all_rounds = player.in_all_rounds()
             player.total_answers_correct_R3=sum([p.answer_correct_R3 for p in player_in_all_rounds])
     
+    puesto1_R3=models.IntegerField()
+    puesto2_R3=models.IntegerField()
+    puesto3_R3=models.IntegerField()
+    puesto4_R3=models.IntegerField()
+
     def rank_R3(self):
         i_1=0 ##puestos 
         i_2=0
         i_3=0
         i_4=0
-        r_1=0 ##id player
-        r_2=0
-        r_3=0
-        r_4=0
+        #r_1=0 ##id player
+        #r_2=0
+        #r_3=0
+        #r_4=0
+
+        self.puesto1_R3=0
+        self.puesto2_R3=0
+        self.puesto3_R3=0
+        self.puesto4_R3=0
 
         for p in self.get_players(): 
-            if p.total_answers_correct_R3 >= i_4:
+            if p.total_answers_correct_R3 >= i_4: 
                 i_4=p.total_answers_correct_R3
-                r_4=p.id_in_group
+                self.puesto4_R3=p.id_in_group
             if i_4 >= i_3:
                 temp=i_3
                 i_3=i_4
                 i_4=temp
-                tee=r_3
-                r_3=r_4
-                r_4=tee
+                tee=self.puesto3_R3
+                self.puesto3_R3=self.puesto4_R3
+                self.puesto4_R3=tee
             if i_3 >= i_2:
                 temp=i_2
                 i_2=i_3
                 i_3=temp
-                tee=r_2
-                r_2=r_3
-                r_3=tee
+                tee=self.puesto2_R3
+                self.puesto2_R3=self.puesto3_R3
+                self.puesto3_R3=tee
             if i_2 >= i_1:
                 temp=i_1
                 i_1=i_2
                 i_2=temp
-                tee=r_1
-                r_1=r_2
-                r_2=tee
-        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+                tee=self.puesto1_R3
+                self.puesto1_R3=self.puesto2_R3
+                self.puesto2_R3=tee
+        return [i_1, i_2, i_3, i_4], [self.puesto1_R3, self.puesto2_R3, self.puesto3_R3, self.puesto4_R3]
+
+    def pp_3(self):
+        for player in self.get_players():
+            if player.id_in_group == self.puesto1_R3:
+                player.payoff=player.total_answers_correct_R3*Constants.point
+            else:
+                player.payoff=0
     
     ### Funciones para R4 ###
     def total_R4(self):
@@ -388,42 +426,59 @@ class Group(BaseGroup):
             player_in_all_rounds = player.in_all_rounds()
             player.total_answers_correct_R4=sum([p.answer_correct_R4 for p in player_in_all_rounds])
     
+    puesto1_R4=models.IntegerField()
+    puesto2_R4=models.IntegerField()
+    puesto3_R4=models.IntegerField()
+    puesto4_R4=models.IntegerField()
+
     def rank_R4(self):
         i_1=0 ##puestos 
         i_2=0
         i_3=0
         i_4=0
-        r_1=0 ##id player
-        r_2=0
-        r_3=0
-        r_4=0
+        #r_1=0 ##id player
+        #r_2=0
+        #r_3=0
+        #r_4=0
+
+        self.puesto1_R4=0
+        self.puesto2_R4=0
+        self.puesto3_R4=0
+        self.puesto4_R4=0
 
         for p in self.get_players(): 
-            if p.total_answers_correct_R4 >= i_4:
+            if p.total_answers_correct_R4 >= i_4: 
                 i_4=p.total_answers_correct_R4
-                r_4=p.id_in_group
+                self.puesto4_R4=p.id_in_group
             if i_4 >= i_3:
                 temp=i_3
                 i_3=i_4
                 i_4=temp
-                tee=r_3
-                r_3=r_4
-                r_4=tee
+                tee=self.puesto3_R4
+                self.puesto3_R4=self.puesto4_R4
+                self.puesto4_R4=tee
             if i_3 >= i_2:
                 temp=i_2
                 i_2=i_3
                 i_3=temp
-                tee=r_2
-                r_2=r_3
-                r_3=tee
+                tee=self.puesto2_R4
+                self.puesto2_R4=self.puesto3_R4
+                self.puesto3_R4=tee
             if i_2 >= i_1:
                 temp=i_1
                 i_1=i_2
                 i_2=temp
-                tee=r_1
-                r_1=r_2
-                r_2=tee
-        return [i_1, i_2, i_3, i_4], [r_1, r_2, r_3, r_4]
+                tee=self.puesto1_R4
+                self.puesto1_R4=self.puesto2_R4
+                self.puesto2_R4=tee
+        return [i_1, i_2, i_3, i_4], [self.puesto1_R4, self.puesto2_R4, self.puesto3_R4, self.puesto4_R4]
+
+    def pp_4(self):
+        for player in self.get_players():
+            if player.id_in_group == self.puesto1_R4:
+                player.payoff=player.total_answers_correct_R4*Constants.point
+            else:
+                player.payoff=0
 
 
 def make_field(label):
@@ -435,18 +490,17 @@ def make_field(label):
 
 
 class Player(BasePlayer):
-    pay=models.IntegerField(initial=0)
     ID_code= models.CharField() ## he creado ID, pero preguntar si de puede conseguir el participant code
     num_ID = models.StringField(label='1. ¿Cuál es tu número ID')
     age = models.IntegerField(label='3. ¿Cuál es tu edad?', min=13, max=40)
     gender = models.StringField(
-        choices=[[0, 'Masculino'], [1, 'Femenino']],
+        choices=[[0, ' Masculino'], [1, ' Femenino']],
         label='2. ¿Cuál es tu género?',
         widget=widgets.RadioSelect,
     )
     career = models.StringField(
-        choices=[['Derecho', 'Derecho'], ['Finanzas', 'Finanzas'],['Marketing','Marketing'],
-        ['Economía','Economía'],['Contabilidad','Contabilidad'],['Administración','Administración'],
+        choices=[['Derecho', 'Derecho'], ['Finanzas', 'Finanzas'],['Marketing',' Marketing'],
+        ['Economía',' Economía'],['Contabilidad',' Contabilidad'],['Administración','Administración'],
         ['Ingeniería informática','Ingeniería informática'],['Ingeniería empresarial','Ingeniería empresarial'],
         ['Negocios internacionales','Negocios internacionales']],
         label='4. ¿Cuál es la carrera que estudias? Seleccione su carrera',
@@ -503,13 +557,3 @@ class Player(BasePlayer):
     answer_correct_R4 = models.IntegerField(initial=0)
     total_answers_correct_R4 = models.IntegerField()
   
-
-#<table>
-#{% for p in subsession.get_players %}
-#<tr>
-#<td>{{ p.id_in_group }}</td>
-#<td>{{ p.total_payoff}}</td>
-#<td>{{ p.donation}}</td>
-#</tr>
-#{% endfor %}
-#</table>

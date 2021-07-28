@@ -12,23 +12,20 @@ class MyPage(Page):
 
 class Instrucciones_conteo(Page):
     def is_displayed(self):
+        p1 = self.group.get_player_by_id(1)
+        Group.treatment = p1.participant.vars['treatment']
         return self.round_number == 1
 
     def before_next_page(self):
         self.session.vars['expiry'] = time.time() + Constants.task_time_c_p
 
     #def before_next_page(self):
-    #    p1 = self.group.get_player_by_id(1)
-    #    treatment = p1.participant.vars['group_treatment']
-    #    if treatment=='C' or treatment=='T1':
+    #    if Group.treatment=='C' or Group.treatment=='T1':
     #        self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
     #    else:
     #        self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
 
-class Prueba_conteo(Page):
-    def is_displayed(self):
-        return self.round_number == 1
-    
+class Prueba_conteo(Page):    
     timer_text = 'Tiempo que le falta para completar la ronda: '
     timeout_seconds = Constants.task_time_c_p
 
@@ -53,7 +50,7 @@ class Prueba_conteo(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 
+        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=1 and self.round_number<=5
 
     def before_next_page(self):
         if self.player.answer_p == self.subsession.total_zeroes_p:
@@ -65,12 +62,12 @@ class Prueba_conteo(Page):
 
 class Wait_p(WaitPage):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == 5
     after_all_players_arrive='total_p'
 
 class Ranking_conteo_p(Page):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == 5
     
     def vars_for_template(self):
         pt_p, p_p = self.group.rank_p()
@@ -86,9 +83,7 @@ class Ranking_conteo_p(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
 
     def before_next_page(self):
-        p1 = self.group.get_player_by_id(1)
-        treatment = p1.participant.vars['group_treatment']
-        if treatment=='C' or treatment=='T1':
+        if Group.treatment=='C' or Group.treatment=='T1':
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
@@ -122,7 +117,7 @@ class Tarea_conteo_R1(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 
+        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=6 and self.round_number<=25
 
     def before_next_page(self):
         if self.player.answer_R1 == self.subsession.total_zeroes_R1:
@@ -134,12 +129,12 @@ class Tarea_conteo_R1(Page):
 
 class Wait_1(WaitPage):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == 25
     after_all_players_arrive='total_R1'
 
 class Ranking_conteo_R1(Page):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == 25
     
     def vars_for_template(self):
         pt_p, p_p = self.group.rank_R1()
@@ -151,16 +146,20 @@ class Ranking_conteo_R1(Page):
         pt_p2=pt_p[1]
         pt_p3=pt_p[2]
         pt_p4=pt_p[3]
+
         return dict(p_p1=p_p1, p_p2=p_p2, p_p3=p_p3, p_p4=p_p4,
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
     
     def before_next_page(self):
-        p1 = self.group.get_player_by_id(1)
-        treatment = p1.participant.vars['group_treatment']
-        if treatment=='C' or treatment=='T1':
+        if Group.treatment=='C' or Group.treatment=='T1':
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
+
+class pay_1(WaitPage):
+    def is_displayed(self):
+        return self.round_number == 25
+    after_all_players_arrive='pp_1'
 
 class Tarea_conteo_R2(Page):
     if Group.treatment=='C' or Group.treatment=='T1':
@@ -191,7 +190,7 @@ class Tarea_conteo_R2(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 
+        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=26 and self.round_number<=45
 
     def before_next_page(self):
         if self.player.answer_R2 == self.subsession.total_zeroes_R2:
@@ -203,12 +202,12 @@ class Tarea_conteo_R2(Page):
 
 class Wait_2(WaitPage):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == 45
     after_all_players_arrive='total_R2'
 
 class Ranking_conteo_R2(Page):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == 45
     
     def vars_for_template(self):
         pt_p, p_p = self.group.rank_R2()
@@ -224,12 +223,15 @@ class Ranking_conteo_R2(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
     
     def before_next_page(self):
-        p1 = self.group.get_player_by_id(1)
-        treatment = p1.participant.vars['group_treatment']
-        if treatment=='C' or treatment=='T1':
+        if Group.treatment=='C' or Group.treatment=='T1':
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
+
+class pay_2(WaitPage):
+    def is_displayed(self):
+        return self.round_number == 45
+    after_all_players_arrive='pp_2'
 
 class Tarea_conteo_R3(Page):
     if Group.treatment=='C' or Group.treatment=='T1':
@@ -260,7 +262,7 @@ class Tarea_conteo_R3(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 
+        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=46 and self.round_number<=65
 
     def before_next_page(self):
         if self.player.answer_R3 == self.subsession.total_zeroes_R3:
@@ -272,12 +274,12 @@ class Tarea_conteo_R3(Page):
 
 class Wait_3(WaitPage):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == 65
     after_all_players_arrive='total_R3'
 
 class Ranking_conteo_R3(Page):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == 65
     
     def vars_for_template(self):
         pt_p, p_p = self.group.rank_R3()
@@ -293,12 +295,15 @@ class Ranking_conteo_R3(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
     
     def before_next_page(self):
-        p1 = self.group.get_player_by_id(1)
-        treatment = p1.participant.vars['group_treatment']
-        if treatment=='C' or treatment=='T1':
+        if Group.treatment=='C' or Group.treatment=='T1':
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
+
+class pay_3(WaitPage):
+    def is_displayed(self):
+        return self.round_number == 65
+    after_all_players_arrive='pp_3'
 
 class Tarea_conteo_R4(Page):
     if Group.treatment=='C' or Group.treatment=='T1':
@@ -329,7 +334,7 @@ class Tarea_conteo_R4(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 
+        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=66 and self.round_number<=85
 
     def before_next_page(self):
         if self.player.answer_R4 == self.subsession.total_zeroes_R4:
@@ -361,6 +366,11 @@ class Ranking_conteo_R4(Page):
         return dict(p_p1=p_p1, p_p2=p_p2, p_p3=p_p3, p_p4=p_p4,
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
 
+class pay_4(WaitPage):
+    def is_displayed(self):
+        return self.round_number == 85
+    after_all_players_arrive='pp_4'
+
 class Encuesta_final(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
@@ -370,16 +380,14 @@ class Encuesta_final(Page):
     'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10', 'q11','q12','q13',
     'q14','q15','q16','q17','q18','q19','q20',]
 
-##solo son para probar códigos
-class ResultsWaitPage(WaitPage):
-    pass
-
-class Results(Page):
+class Enlace_pago(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
 
     def vars_for_template(self):
-        return dict(a=self.player.pay)
+        total_payoff=self.participant.payoff_plus_participation_fee()
+
+        return dict(e=total_payoff)
 
 
 page_sequence = [
@@ -391,31 +399,20 @@ page_sequence = [
     Tarea_conteo_R1,
     Wait_1,
     Ranking_conteo_R1,
-    Tarea_conteo_R2,
-    Wait_2,
-    Ranking_conteo_R2,
-    Tarea_conteo_R3,
-    Wait_3,
-    Ranking_conteo_R3,
-    Tarea_conteo_R4,
-    Wait_4,
-    Ranking_conteo_R4,
-    Encuesta_final, 
-    #ResultsWaitPage, 
-    #Results
+    pay_1,
+    #Tarea_conteo_R2,
+    #Wait_2,
+    #Ranking_conteo_R2,
+    #pay_2,
+    #Tarea_conteo_R3,
+    #Wait_3,
+    #Ranking_conteo_R3,
+    #pay_3,
+    #Tarea_conteo_R4,
+    #Wait_4,
+    #Ranking_conteo_R4,
+    #pay_4,
+    #Encuesta_final,  
+    Enlace_pago,
     ]
 
-
-
-        #timeout_happened = self.timeout_happened
-        #if timeout_happened:
-        #    self.player.participant.vars['timedout_realeffort_R1'] = True
-        #else:
-        #    self.player.participant.vars['timedout_realeffort_R1'] = False
-        #if self.round_number == Constants.num_rounds: #creo que esto no es necesario
-        #player_in_all_rounds = self.player.in_all_rounds()
-        #self.player.total_answers_correct_R1 = sum([p.answer_correct_R1 for p in player_in_all_rounds])
-            #self.player.participant.vars['realeffort_correct_R1'] = sum([p.answer_correct_R1 for p in player_in_all_rounds])
-            #self.session.vars['realeffort_possible_R1'] = Constants.num_rounds
-            #print(self.player.participant.vars['realeffort_correct_R1'])
-        #return self.player.total_answers_correct_R1
