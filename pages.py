@@ -380,34 +380,34 @@ class Encuesta_final(Page):
     'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10', 'q11','q12','q13',
     'q14','q15','q16','q17','q18','q19','q20',]
 
-class Enlace_pago(Page):
-    def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+class Final_e2lab(Page):
+    def vars_for_template(self):
+        return dict(participant_id=self.participant.vars['id_code'])
 
 
 page_sequence = [
     #MyPage,
     Instrucciones_conteo,
-    #Prueba_conteo,
-    #Wait_p,
-    #Ranking_conteo_p,
-    #Tarea_conteo_R1,
-    #Wait_1,
-    #Ranking_conteo_R1,
-    #pay_1,
-    #Tarea_conteo_R2,
-    #Wait_2,
-    #Ranking_conteo_R2,
-    #pay_2,
+    Prueba_conteo,
+    Wait_p,
+    Ranking_conteo_p,
+    Tarea_conteo_R1,
+    Wait_1,
+    Ranking_conteo_R1,
+    pay_1,
+    Tarea_conteo_R2,
+    Wait_2,
+    Ranking_conteo_R2,
+    pay_2,
     #Tarea_conteo_R3,
-    #Wait_3,
-    #Ranking_conteo_R3,
-    #pay_3,
-    #Tarea_conteo_R4,
-    #Wait_4,
-    #Ranking_conteo_R4,
-    #pay_4,
+    Wait_3,
+    Ranking_conteo_R3,
+    pay_3,
+    Tarea_conteo_R4,
+    Wait_4,
+    Ranking_conteo_R4,
+    pay_4,
     Encuesta_final,  
-    #Enlace_pago,
+    Final_e2lab,
     ]
 

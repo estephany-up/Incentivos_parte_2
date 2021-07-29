@@ -478,7 +478,7 @@ def make_field(label):
 
 
 class Player(BasePlayer):
-    num_ID = models.StringField(label='1. ¿Cuál es tu número ID')
+    num_ID = models.StringField(label='1. ¿Cuál es tu etiqueta de participante? (se mostró al inicio del experimento)')
     age = models.IntegerField(label='3. ¿Cuál es tu edad?', min=13, max=40)
     gender = models.StringField(
         choices=[[0, ' Masculino'], [1, ' Femenino']],
