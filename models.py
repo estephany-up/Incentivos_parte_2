@@ -115,19 +115,7 @@ class Subsession(BaseSubsession):
                                self.row4_R4.count("0"), self.row5_R4.count("0"), self.row6_R4.count("0"),
                                self.row7_R4.count("0"), self.row8_R4.count("0"), self.row9_R4.count("0"), 
                                self.row10_R4.count("0"),
-                               ])
-        
-###REVISAR ID
-        abcs=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ', 'o','p','q','r','s',
-        't','u','v','w','x','y','z']
-        nums=['1','2','3','4','5','6','7','8','9']
-        a=random.choice(abcs)
-        b=random.choice(abcs)
-        c=random.choice(abcs)
-        d=random.choice(nums)
-        e=random.choice(nums)
-        f=random.choice(nums)
-        Player.ID_code=a+b+c+d+e+f        
+                               ])       
 
     total_zeroes_p = models.IntegerField()
 
@@ -490,21 +478,20 @@ def make_field(label):
 
 
 class Player(BasePlayer):
-    ID_code= models.CharField() ## he creado ID, pero preguntar si de puede conseguir el participant code
     num_ID = models.StringField(label='1. ¿Cuál es tu número ID')
     age = models.IntegerField(label='3. ¿Cuál es tu edad?', min=13, max=40)
     gender = models.StringField(
         choices=[[0, ' Masculino'], [1, ' Femenino']],
-        label='2. ¿Cuál es tu género?',
-        widget=widgets.RadioSelect,
+        verbose_name='2. ¿Cuál es tu género?',
+        widget=widgets.RadioSelectHorizontal,
     )
     career = models.StringField(
         choices=[['Derecho', 'Derecho'], ['Finanzas', 'Finanzas'],['Marketing',' Marketing'],
         ['Economía',' Economía'],['Contabilidad',' Contabilidad'],['Administración','Administración'],
         ['Ingeniería informática','Ingeniería informática'],['Ingeniería empresarial','Ingeniería empresarial'],
         ['Negocios internacionales','Negocios internacionales']],
-        label='4. ¿Cuál es la carrera que estudias? Seleccione su carrera',
-        widget=widgets.RadioSelect,
+        verbose_name='4. ¿Cuál es la carrera que estudias? Seleccione su carrera',
+        widget=widgets.RadioSelectHorizontal,
     )
     ciclo = models.IntegerField(label='5. ¿Qué ciclo estás cursando actualmente? (Ej:5to)')
     escala = models.StringField(label='6. ¿En qué escala de pensión te encuentras?')

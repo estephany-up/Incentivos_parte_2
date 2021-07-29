@@ -384,22 +384,17 @@ class Enlace_pago(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
 
-    def vars_for_template(self):
-        total_payoff=self.participant.payoff_plus_participation_fee()
-
-        return dict(e=total_payoff)
-
 
 page_sequence = [
     #MyPage,
     Instrucciones_conteo,
-    Prueba_conteo,
-    Wait_p,
-    Ranking_conteo_p,
-    Tarea_conteo_R1,
-    Wait_1,
-    Ranking_conteo_R1,
-    pay_1,
+    #Prueba_conteo,
+    #Wait_p,
+    #Ranking_conteo_p,
+    #Tarea_conteo_R1,
+    #Wait_1,
+    #Ranking_conteo_R1,
+    #pay_1,
     #Tarea_conteo_R2,
     #Wait_2,
     #Ranking_conteo_R2,
@@ -412,7 +407,7 @@ page_sequence = [
     #Wait_4,
     #Ranking_conteo_R4,
     #pay_4,
-    #Encuesta_final,  
-    Enlace_pago,
+    Encuesta_final,  
+    #Enlace_pago,
     ]
 
