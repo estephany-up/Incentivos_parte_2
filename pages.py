@@ -381,6 +381,9 @@ class Encuesta_final(Page):
     'q14','q15','q16','q17','q18','q19','q20',]
 
 class Final_e2lab(Page):
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+
     def vars_for_template(self):
         return dict(participant_id=self.participant.vars['id_code'])
 
@@ -399,7 +402,7 @@ page_sequence = [
     Wait_2,
     Ranking_conteo_R2,
     pay_2,
-    #Tarea_conteo_R3,
+    Tarea_conteo_R3,
     Wait_3,
     Ranking_conteo_R3,
     pay_3,
