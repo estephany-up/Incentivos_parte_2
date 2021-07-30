@@ -385,7 +385,7 @@ class Final_e2lab(Page):
         return self.round_number == Constants.num_rounds
 
     def vars_for_template(self):
-        return dict(participant_id=self.participant.vars['id_code'])
+        return dict(participant_id=self.participant.vars['id_code'], ep=self.participant.payoff_plus_participation_fee())
 
 
 page_sequence = [

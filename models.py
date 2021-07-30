@@ -481,7 +481,7 @@ class Player(BasePlayer):
     num_ID = models.StringField(label='1. ¿Cuál es tu etiqueta de participante? (se mostró al inicio del experimento)')
     age = models.IntegerField(label='3. ¿Cuál es tu edad?', min=13, max=40)
     gender = models.StringField(
-        choices=[[0, ' Masculino'], [1, ' Femenino']],
+        choices=[['Masculino', 'Masculino'], ['Femenino', 'Femenino'],['Otro', 'Otro']],
         verbose_name='2. ¿Cuál es tu género?',
         widget=widgets.RadioSelectHorizontal,
     )
@@ -493,10 +493,10 @@ class Player(BasePlayer):
         verbose_name='4. ¿Cuál es la carrera que estudias? Seleccione su carrera',
         widget=widgets.RadioSelectHorizontal,
     )
-    ciclo = models.IntegerField(label='5. ¿Qué ciclo estás cursando actualmente? (Ej:5to)')
+    ciclo = models.IntegerField(label='5. ¿Qué ciclo estás cursando actualmente? (Ej:si te encuentras en quinto ciclo, ingresa el número 5)')
     escala = models.StringField(label='6. ¿En qué escala de pensión te encuentras?')
     exp = models.StringField(
-        choices=[[0,'No'],[1,'Sí, una vez'],[2,'Sí, más de una vez']],
+        choices=[['No','No'],['Sí, una vez','Sí, una vez'],['Sí, más de una vez','Sí, más de una vez']],
         label='7. ¿Has participado en un experimento anteriormente?',
     )
     ##enunciados de competencia
@@ -524,23 +524,23 @@ class Player(BasePlayer):
     q20 = make_field('El incentivo monetario ofrecido no está a la altura de mis expectativas')
 
     ##variables para obtener puntajes
-    answer_p = models.IntegerField(verbose_name="""""", blank=True, initial=0)
+    answer_p = models.IntegerField(verbose_name="""""", blank=False, initial=0)
     answer_correct_p = models.IntegerField(initial=0)
     total_answers_correct_p = models.IntegerField()
 
-    answer_R1 = models.IntegerField(verbose_name="""""", blank=True, initial=0)
+    answer_R1 = models.IntegerField(verbose_name="""""", blank=False, initial=0)
     answer_correct_R1 = models.IntegerField(initial=0)
     total_answers_correct_R1 = models.IntegerField()
 
-    answer_R2 = models.IntegerField(verbose_name="""""", blank = True, initial=0)
+    answer_R2 = models.IntegerField(verbose_name="""""", blank=False, initial=0)
     answer_correct_R2 = models.IntegerField(initial=0)
     total_answers_correct_R2 = models.IntegerField()
 
-    answer_R3 = models.IntegerField(verbose_name="""""", blank = True, initial=0)
+    answer_R3 = models.IntegerField(verbose_name="""""", blank=False, initial=0)
     answer_correct_R3 = models.IntegerField(initial=0)
     total_answers_correct_R3 = models.IntegerField()
 
-    answer_R4 = models.IntegerField(verbose_name="""""", blank = True, initial=0)
+    answer_R4 = models.IntegerField(verbose_name="""""", blank=False, initial=0)
     answer_correct_R4 = models.IntegerField(initial=0)
     total_answers_correct_R4 = models.IntegerField()
   
