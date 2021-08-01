@@ -519,7 +519,7 @@ class Player(BasePlayer):
     q16 = make_field('Los incentivos monetarios no tienen ningún valor para mí')
     q17 = make_field('Los incentivos monetarios tienen efectos positivos en mi performance')
     q18 = make_field('Un incentivo monetario atractivo aumentará mi motivación para trabajar más duro')
-    ##enunciados adicionales para tratameinto 1 y 3
+    ##enunciados adicionales para tratamiento 1 y 3
     q19 = make_field('Los incentivos monetarios ofrecidos coinciden con mi esfuerzo en las tareas realizadas')
     q20 = make_field('El incentivo monetario ofrecido no está a la altura de mis expectativas')
 

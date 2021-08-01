@@ -376,9 +376,14 @@ class Encuesta_final(Page):
         return self.round_number == Constants.num_rounds
 
     form_model = 'player'
-    form_fields = ['num_ID','gender','age','career','ciclo','escala','exp',
-    'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10', 'q11','q12','q13',
-    'q14','q15','q16','q17','q18','q19','q20',]
+    if Group.treatment=='T1' or Group.treatment=='T3':
+        form_fields = ['num_ID','gender','age','career','ciclo','escala','exp',
+        'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10', 'q11','q12','q13',
+        'q14','q15','q16','q17','q18','q19','q20',]
+    else:
+        form_fields = ['num_ID','gender','age','career','ciclo','escala','exp',
+        'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10', 'q11','q12','q13',
+        'q14','q15','q16','q17','q18',]
 
 class Final_e2lab(Page):
     def is_displayed(self):
@@ -398,18 +403,18 @@ page_sequence = [
     Wait_1,
     Ranking_conteo_R1,
     pay_1,
-    Tarea_conteo_R2,
-    Wait_2,
-    Ranking_conteo_R2,
-    pay_2,
-    Tarea_conteo_R3,
-    Wait_3,
-    Ranking_conteo_R3,
-    pay_3,
-    Tarea_conteo_R4,
-    Wait_4,
-    Ranking_conteo_R4,
-    pay_4,
+    #Tarea_conteo_R2,
+    #Wait_2,
+    #Ranking_conteo_R2,
+    #pay_2,
+    #Tarea_conteo_R3,
+    #Wait_3,
+    #Ranking_conteo_R3,
+    #pay_3,
+    #Tarea_conteo_R4,
+    #Wait_4,
+    #Ranking_conteo_R4,
+    #pay_4,
     Encuesta_final,  
     Final_e2lab,
     ]
