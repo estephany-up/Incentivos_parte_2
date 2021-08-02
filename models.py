@@ -33,7 +33,8 @@ class Constants(BaseConstants):
     task_time_c_p = 60  #prueba conteo
     task_time_c_s = 300 #conteo sin presión
     task_time_c_t = 180 #conteo con presión
-    point=0.2
+    s_inc=0
+    c_inc=0.2
 
 class Subsession(BaseSubsession):
     def creating_session(self):    
@@ -282,11 +283,18 @@ class Group(BaseGroup):
         #[r_1, r_2, r_3, r_4]
     
     def pp_1(self):
-        for player in self.get_players():
-            if player.id_in_group == self.puesto1_R1:
-                player.payoff=player.total_answers_correct_R1*Constants.point
-            else:
-                player.payoff=0
+        if self.treatment=='T1' or self.treatment=='T3':
+            for player in self.get_players():
+                if player.id_in_group == self.puesto1_R1:
+                    player.payoff=player.total_answers_correct_R1*Constants.c_inc
+                else:
+                    player.payoff=0
+        elif self.treatment=='C' or self.treatment=='T2':
+            for player in self.get_players():
+                if player.id_in_group == self.puesto1_R1:
+                    player.payoff=player.total_answers_correct_R1*Constants.s_inc
+                else:
+                    player.payoff=0
 
     ### Funciones para R2 ###
     def total_R2(self):
@@ -342,11 +350,18 @@ class Group(BaseGroup):
         return [i_1, i_2, i_3, i_4], [self.puesto1_R2, self.puesto2_R2, self.puesto3_R2, self.puesto4_R2]
     
     def pp_2(self):
-        for player in self.get_players():
-            if player.id_in_group == self.puesto1_R2:
-                player.payoff=player.total_answers_correct_R2*Constants.point
-            else:
-                player.payoff=0
+        if self.treatment=='T1' or self.treatment=='T3':
+            for player in self.get_players():
+                if player.id_in_group == self.puesto1_R2:
+                    player.payoff=player.total_answers_correct_R2*Constants.c_inc
+                else:
+                    player.payoff=0
+        elif self.treatment=='C' or self.treatment=='T2':
+            for player in self.get_players():
+                if player.id_in_group == self.puesto1_R2:
+                    player.payoff=player.total_answers_correct_R2*Constants.s_inc
+                else:
+                    player.payoff=0
     
     ### Funciones para R3 ###
     def total_R3(self):
@@ -402,11 +417,18 @@ class Group(BaseGroup):
         return [i_1, i_2, i_3, i_4], [self.puesto1_R3, self.puesto2_R3, self.puesto3_R3, self.puesto4_R3]
 
     def pp_3(self):
-        for player in self.get_players():
-            if player.id_in_group == self.puesto1_R3:
-                player.payoff=player.total_answers_correct_R3*Constants.point
-            else:
-                player.payoff=0
+        if self.treatment=='T1' or self.treatment=='T3':
+            for player in self.get_players():
+                if player.id_in_group == self.puesto1_R3:
+                    player.payoff=player.total_answers_correct_R3*Constants.c_inc
+                else:
+                    player.payoff=0
+        elif self.treatment=='C' or self.treatment=='T2':
+            for player in self.get_players():
+                if player.id_in_group == self.puesto1_R3:
+                    player.payoff=player.total_answers_correct_R3*Constants.s_inc
+                else:
+                    player.payoff=0
     
     ### Funciones para R4 ###
     def total_R4(self):
@@ -462,11 +484,18 @@ class Group(BaseGroup):
         return [i_1, i_2, i_3, i_4], [self.puesto1_R4, self.puesto2_R4, self.puesto3_R4, self.puesto4_R4]
 
     def pp_4(self):
-        for player in self.get_players():
-            if player.id_in_group == self.puesto1_R4:
-                player.payoff=player.total_answers_correct_R4*Constants.point
-            else:
-                player.payoff=0
+        if self.treatment=='T1' or self.treatment=='T3':
+            for player in self.get_players():
+                if player.id_in_group == self.puesto1_R4:
+                    player.payoff=player.total_answers_correct_R4*Constants.c_inc
+                else:
+                    player.payoff=0
+        elif self.treatment=='C' or self.treatment=='T2':
+            for player in self.get_players():
+                if player.id_in_group == self.puesto1_R4:
+                    player.payoff=player.total_answers_correct_R4*Constants.s_inc
+                else:
+                    player.payoff=0
 
 
 def make_field(label):
@@ -524,19 +553,19 @@ class Player(BasePlayer):
     q20 = make_field('El incentivo monetario ofrecido no está a la altura de mis expectativas')
 
     ##variables para obtener puntajes
-    answer_p = models.IntegerField(verbose_name="""""", blank=False, initial=0)
+    answer_p = models.IntegerField(verbose_name="""""", blank=True, initial=0)
     answer_correct_p = models.IntegerField(initial=0)
     total_answers_correct_p = models.IntegerField()
 
-    answer_R1 = models.IntegerField(verbose_name="""""", blank=False, initial=0)
+    answer_R1 = models.IntegerField(verbose_name="""""", blank=True, initial=0)
     answer_correct_R1 = models.IntegerField(initial=0)
     total_answers_correct_R1 = models.IntegerField()
 
-    answer_R2 = models.IntegerField(verbose_name="""""", blank=False, initial=0)
+    answer_R2 = models.IntegerField(verbose_name="""""", blank=True, initial=0)
     answer_correct_R2 = models.IntegerField(initial=0)
     total_answers_correct_R2 = models.IntegerField()
 
-    answer_R3 = models.IntegerField(verbose_name="""""", blank=False, initial=0)
+    answer_R3 = models.IntegerField(verbose_name="""""", blank=True, initial=0)
     answer_correct_R3 = models.IntegerField(initial=0)
     total_answers_correct_R3 = models.IntegerField()
 

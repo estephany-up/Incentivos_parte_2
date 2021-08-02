@@ -83,12 +83,14 @@ class Ranking_conteo_p(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
 
     def before_next_page(self):
+        p1 = self.group.get_player_by_id(1)
+        Group.treatment = p1.participant.vars['treatment']
         if Group.treatment=='C' or Group.treatment=='T1':
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
 
-class Tarea_conteo_R1(Page):    
+class Tarea_conteo_R1(Page):   
     if Group.treatment=='C' or Group.treatment=='T1':
         timer_text = 'Tiempo que le falta para completar la ronda: '
         timeout_seconds = Constants.task_time_c_s
@@ -98,6 +100,10 @@ class Tarea_conteo_R1(Page):
 
     form_model = "player"
     form_fields = ["answer_R1"]
+
+    def answer_R1_error_message(self, value):
+        if value["answer_R1"] == None:
+            return 'Ingrese su respuesta'
 
     def vars_for_template(self):
         return {
@@ -151,6 +157,8 @@ class Ranking_conteo_R1(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
     
     def before_next_page(self):
+        p1 = self.group.get_player_by_id(1)
+        Group.treatment = p1.participant.vars['treatment']
         if Group.treatment=='C' or Group.treatment=='T1':
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
@@ -415,7 +423,7 @@ page_sequence = [
     #Wait_4,
     #Ranking_conteo_R4,
     #pay_4,
-    Encuesta_final,  
+    #Encuesta_final,  
     Final_e2lab,
     ]
 
