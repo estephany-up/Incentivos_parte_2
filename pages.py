@@ -12,8 +12,9 @@ class MyPage(Page):
 
 class Instrucciones_conteo(Page):
     def is_displayed(self):
-        p1 = self.group.get_player_by_id(1)
-        self.group.treatment = p1.participant.vars['treatment']
+        self.group.tr()
+        #p1 = self.group.get_player_by_id(1)
+        #self.group.treatment = p1.participant.vars['treatment']
         return self.round_number == 1
 
     def before_next_page(self):
@@ -85,7 +86,8 @@ class Ranking_conteo_p(Page):
     def before_next_page(self):
         #p1 = self.group.get_player_by_id(1)
         #Group.treatment = p1.participant.vars['treatment']
-        if self.group.treatment=='C' or self.group.treatment=='T1':
+        self.group.tr()
+        if Group.treatment=='C' or Group.treatment=='T1':
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_t

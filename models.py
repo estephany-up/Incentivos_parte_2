@@ -116,7 +116,12 @@ class Subsession(BaseSubsession):
                                self.row4_R4.count("0"), self.row5_R4.count("0"), self.row6_R4.count("0"),
                                self.row7_R4.count("0"), self.row8_R4.count("0"), self.row9_R4.count("0"), 
                                self.row10_R4.count("0"),
-                               ])       
+                               ]) 
+
+        #if self.round_number==1:
+        #    for g in self.get_groups():
+        #        p1 = g.get_player_by_id(1)
+        #        g.treatment = p1.participant.vars['treatment']      
 
     total_zeroes_p = models.IntegerField()
 
@@ -183,8 +188,18 @@ class Subsession(BaseSubsession):
     row9_R4 = models.CharField()
     row10_R4 = models.CharField()
 
+#def tr(self):
+#    if self.round_number==1:
+#            for g in self.get_groups():
+#                p1 = g.get_player_by_id(1)
+#                g.treatment = p1.participant.vars['treatment'] 
+
 class Group(BaseGroup):
     treatment=models.CharField()
+
+    def tr(self):
+        p1 = self.get_player_by_id(1)
+        self.treatment = p1.participant.vars['treatment']
 
     ### Funciones para PRUEBA ###
     def total_p(self):
