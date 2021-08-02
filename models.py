@@ -184,7 +184,7 @@ class Subsession(BaseSubsession):
     row10_R4 = models.CharField()
 
 class Group(BaseGroup):
-    treatment=models.StringField()
+    treatment=models.CharField()
 
     ### Funciones para PRUEBA ###
     def total_p(self):
@@ -569,7 +569,7 @@ class Player(BasePlayer):
     answer_correct_R3 = models.IntegerField(initial=0)
     total_answers_correct_R3 = models.IntegerField()
 
-    answer_R4 = models.IntegerField(verbose_name="""""", blank=False, initial=0)
+    answer_R4 = models.IntegerField(verbose_name="""""", blank=True, initial=0)
     answer_correct_R4 = models.IntegerField(initial=0)
     total_answers_correct_R4 = models.IntegerField()
   

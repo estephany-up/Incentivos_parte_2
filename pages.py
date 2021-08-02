@@ -13,7 +13,7 @@ class MyPage(Page):
 class Instrucciones_conteo(Page):
     def is_displayed(self):
         p1 = self.group.get_player_by_id(1)
-        Group.treatment = p1.participant.vars['treatment']
+        self.group.treatment = p1.participant.vars['treatment']
         return self.round_number == 1
 
     def before_next_page(self):
@@ -50,7 +50,7 @@ class Prueba_conteo(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=1 and self.round_number<=5
+        return self.round_number>=1 and self.round_number<=5
 
     def before_next_page(self):
         if self.player.answer_p == self.subsession.total_zeroes_p:
@@ -83,9 +83,9 @@ class Ranking_conteo_p(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
 
     def before_next_page(self):
-        p1 = self.group.get_player_by_id(1)
-        Group.treatment = p1.participant.vars['treatment']
-        if Group.treatment=='C' or Group.treatment=='T1':
+        #p1 = self.group.get_player_by_id(1)
+        #Group.treatment = p1.participant.vars['treatment']
+        if self.group.treatment=='C' or self.group.treatment=='T1':
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
             self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
@@ -100,10 +100,6 @@ class Tarea_conteo_R1(Page):
 
     form_model = "player"
     form_fields = ["answer_R1"]
-
-    def answer_R1_error_message(self, value):
-        if value["answer_R1"] == None:
-            return 'Ingrese su respuesta'
 
     def vars_for_template(self):
         return {
@@ -123,7 +119,7 @@ class Tarea_conteo_R1(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=6 and self.round_number<=25
+        return self.round_number>=6 and self.round_number<=25
 
     def before_next_page(self):
         if self.player.answer_R1 == self.subsession.total_zeroes_R1:
@@ -198,7 +194,7 @@ class Tarea_conteo_R2(Page):
         return self.session.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=26 and self.round_number<=45
+        return self.round_number>=26 and self.round_number<=45
 
     def before_next_page(self):
         if self.player.answer_R2 == self.subsession.total_zeroes_R2:

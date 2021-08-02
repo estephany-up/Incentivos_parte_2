@@ -5,14 +5,6 @@
 {% endblock %}
 
 {% block content %}
-    <div class="otreetimernew">
-        <h3>Tiempo que le falta para completar la ronda: 
-            <span style="color:green; font-weight: bold">
-                <span class="otree-timer__time-left"></span>
-            </span>
-        </h3>
-    </div>
-    <br /><br /><br />
     <p style="text-align:center;">Escriba en el recuadro la cantidad de ceros que hay en la siguiente matriz:</p>
     <br>
     <div class="task-container">
@@ -34,8 +26,8 @@
     <br />
     <br />
     {% next_button %}
-    </div>
-    {{formfield_errors "answer_R1"}}   
+    </div>   
+    {% if form.answer_R1.errors %}{{ form.answer_R1.errors.0 }}{% endif %}
 
 {% endblock %}
 
@@ -49,17 +41,5 @@
     margin-right: auto;
     text-align: center;
     }
-
-    .otreetimernew {
-        text-align:right;
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        }
-
-    .otree-timer {
-            display: none;
-        }
-
 </style>
 {% endblock %}

@@ -35,7 +35,7 @@
     <br />
     {% next_button %}
     </div>
-{% if form.answer_p.errors %}{{ form.answer_p.errors.0 }}{% endif %}
+    {% if form.answer_p.errors %}{{ form.answer_p.errors.0 }}{% endif %}
 
 {% endblock %}
 
