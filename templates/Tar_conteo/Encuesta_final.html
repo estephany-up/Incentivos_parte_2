@@ -73,18 +73,34 @@
         </tr>
         
         {% for field in form %}
-        {% if forloop.counter > 21 %} 
-        <tr>
+        {% if group.treatment == 'T1' or group.treatment == 'T3' %}
+            {% if forloop.counter > 21 %} 
+            <tr>
 
-        <td align="left" style="min-width:40px">{{ field.label }}</td>
+            <td align="left" style="min-width:40px">{{ field.label }}</td>
       
-            {% for choice in field %}
-            <td align="center" >{{ choice }}</td>
-            {% endfor %}
+                {% for choice in field %}
+                <td align="center" >{{ choice }}</td>
+                {% endfor %}
         
-        </tr>
+            </tr>
+            {% endif %}
         
+        {% else %}
+            {% if forloop.counter > 21 and forloop.counter < 26 %} 
+            <tr>
+
+            <td align="left" style="min-width:40px">{{ field.label }}</td>
+      
+                {% for choice in field %}
+                <td align="center" >{{ choice }}</td>
+                {% endfor %}
+        
+            </tr>
+            {% endif %}
+
         {% endif %}
+
         {% endfor %}
     </table>
 

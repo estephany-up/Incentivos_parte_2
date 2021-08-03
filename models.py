@@ -116,12 +116,7 @@ class Subsession(BaseSubsession):
                                self.row4_R4.count("0"), self.row5_R4.count("0"), self.row6_R4.count("0"),
                                self.row7_R4.count("0"), self.row8_R4.count("0"), self.row9_R4.count("0"), 
                                self.row10_R4.count("0"),
-                               ]) 
-
-        #if self.round_number==1:
-        #    for g in self.get_groups():
-        #        p1 = g.get_player_by_id(1)
-        #        g.treatment = p1.participant.vars['treatment']      
+                               ])      
 
     total_zeroes_p = models.IntegerField()
 
@@ -188,18 +183,9 @@ class Subsession(BaseSubsession):
     row9_R4 = models.CharField()
     row10_R4 = models.CharField()
 
-#def tr(self):
-#    if self.round_number==1:
-#            for g in self.get_groups():
-#                p1 = g.get_player_by_id(1)
-#                g.treatment = p1.participant.vars['treatment'] 
 
 class Group(BaseGroup):
-    treatment=models.CharField()
-
-    def tr(self):
-        p1 = self.get_player_by_id(1)
-        self.treatment = p1.participant.vars['treatment']
+    treatment=models.StringField()
 
     ### Funciones para PRUEBA ###
     def total_p(self):
@@ -564,8 +550,18 @@ class Player(BasePlayer):
     q17 = make_field('Los incentivos monetarios tienen efectos positivos en mi performance')
     q18 = make_field('Un incentivo monetario atractivo aumentará mi motivación para trabajar más duro')
     ##enunciados adicionales para tratamiento 1 y 3
-    q19 = make_field('Los incentivos monetarios ofrecidos coinciden con mi esfuerzo en las tareas realizadas')
-    q20 = make_field('El incentivo monetario ofrecido no está a la altura de mis expectativas')
+    q19 = models.IntegerField(
+        choices=[[1,''],[2,''],[3,''],[4,'']],
+        label='Los incentivos monetarios ofrecidos coinciden con mi esfuerzo en las tareas realizadas',
+        widget=widgets.RadioSelect,
+        blank=True
+    )
+    q20 = models.IntegerField(
+        choices=[[1,''],[2,''],[3,''],[4,'']],
+        label='El incentivo monetario ofrecido no está a la altura de mis expectativas',
+        widget=widgets.RadioSelect,
+        blank=True
+    )
 
     ##variables para obtener puntajes
     answer_p = models.IntegerField(verbose_name="""""", blank=True, initial=0)

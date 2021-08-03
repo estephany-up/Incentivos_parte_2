@@ -12,13 +12,12 @@ class MyPage(Page):
 
 class Instrucciones_conteo(Page):
     def is_displayed(self):
-        self.group.tr()
-        #p1 = self.group.get_player_by_id(1)
-        #self.group.treatment = p1.participant.vars['treatment']
+        p1 = self.group.get_player_by_id(1)
+        self.group.treatment = p1.participant.vars['treatment']
         return self.round_number == 1
 
     def before_next_page(self):
-        self.session.vars['expiry'] = time.time() + Constants.task_time_c_p
+        self.participant.vars['expiry'] = time.time() + Constants.task_time_c_p
 
     #def before_next_page(self):
     #    if Group.treatment=='C' or Group.treatment=='T1':
@@ -48,10 +47,10 @@ class Prueba_conteo(Page):
         }
     
     def get_timeout_seconds(self):
-        return self.session.vars['expiry'] - time.time()
+        return self.participant.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.round_number>=1 and self.round_number<=5
+        return self.participant.vars['expiry'] - time.time() > 2 and self.round_number>=1 and self.round_number<=5
 
     def before_next_page(self):
         if self.player.answer_p == self.subsession.total_zeroes_p:
@@ -84,13 +83,12 @@ class Ranking_conteo_p(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
 
     def before_next_page(self):
-        #p1 = self.group.get_player_by_id(1)
-        #Group.treatment = p1.participant.vars['treatment']
-        self.group.tr()
-        if Group.treatment=='C' or Group.treatment=='T1':
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        p1 = self.group.get_player_by_id(1)
+        Group.treatment = p1.participant.vars['treatment']
+        if self.group.treatment=='C' or self.group.treatment=='T1':
+            self.participant.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
+            self.participant.vars['expiry'] = time.time() + Constants.task_time_c_t
 
 class Tarea_conteo_R1(Page):   
     if Group.treatment=='C' or Group.treatment=='T1':
@@ -118,10 +116,10 @@ class Tarea_conteo_R1(Page):
         }
     
     def get_timeout_seconds(self):
-        return self.session.vars['expiry'] - time.time()
+        return self.participant.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.round_number>=6 and self.round_number<=25
+        return self.participant.vars['expiry'] - time.time() > 2 and self.round_number>=6 and self.round_number<=25
 
     def before_next_page(self):
         if self.player.answer_R1 == self.subsession.total_zeroes_R1:
@@ -157,10 +155,10 @@ class Ranking_conteo_R1(Page):
     def before_next_page(self):
         p1 = self.group.get_player_by_id(1)
         Group.treatment = p1.participant.vars['treatment']
-        if Group.treatment=='C' or Group.treatment=='T1':
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        if self.group.treatment=='C' or self.group.treatment=='T1':
+            self.participant.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
+            self.participant.vars['expiry'] = time.time() + Constants.task_time_c_t
 
 class pay_1(WaitPage):
     def is_displayed(self):
@@ -193,10 +191,10 @@ class Tarea_conteo_R2(Page):
         }
     
     def get_timeout_seconds(self):
-        return self.session.vars['expiry'] - time.time()
+        return self.participant.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.round_number>=26 and self.round_number<=45
+        return self.participant.vars['expiry'] - time.time() > 2 and self.round_number>=26 and self.round_number<=45
 
     def before_next_page(self):
         if self.player.answer_R2 == self.subsession.total_zeroes_R2:
@@ -229,10 +227,12 @@ class Ranking_conteo_R2(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
     
     def before_next_page(self):
-        if Group.treatment=='C' or Group.treatment=='T1':
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        p1 = self.group.get_player_by_id(1)
+        Group.treatment = p1.participant.vars['treatment']
+        if self.group.treatment=='C' or self.group.treatment=='T1':
+            self.participant.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
+            self.participant.vars['expiry'] = time.time() + Constants.task_time_c_t
 
 class pay_2(WaitPage):
     def is_displayed(self):
@@ -265,10 +265,10 @@ class Tarea_conteo_R3(Page):
         }
     
     def get_timeout_seconds(self):
-        return self.session.vars['expiry'] - time.time()
+        return self.participant.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=46 and self.round_number<=65
+        return self.participant.vars['expiry'] - time.time() > 2 and self.round_number>=46 and self.round_number<=65
 
     def before_next_page(self):
         if self.player.answer_R3 == self.subsession.total_zeroes_R3:
@@ -301,10 +301,12 @@ class Ranking_conteo_R3(Page):
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
     
     def before_next_page(self):
-        if Group.treatment=='C' or Group.treatment=='T1':
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_s
+        p1 = self.group.get_player_by_id(1)
+        Group.treatment = p1.participant.vars['treatment']
+        if self.group.treatment=='C' or self.group.treatment=='T1':
+            self.participant.vars['expiry'] = time.time() + Constants.task_time_c_s
         else:
-            self.session.vars['expiry'] = time.time() + Constants.task_time_c_t
+            self.participant.vars['expiry'] = time.time() + Constants.task_time_c_t
 
 class pay_3(WaitPage):
     def is_displayed(self):
@@ -337,10 +339,10 @@ class Tarea_conteo_R4(Page):
         }
     
     def get_timeout_seconds(self):
-        return self.session.vars['expiry'] - time.time()
+        return self.participant.vars['expiry'] - time.time()
 
     def is_displayed(self):
-        return self.session.vars['expiry'] - time.time() > 2 and self.round_number>=66 and self.round_number<=85
+        return self.participant.vars['expiry'] - time.time() > 2 and self.round_number>=66 and self.round_number<=85
 
     def before_next_page(self):
         if self.player.answer_R4 == self.subsession.total_zeroes_R4:
@@ -371,6 +373,10 @@ class Ranking_conteo_R4(Page):
         pt_p4=pt_p[3]
         return dict(p_p1=p_p1, p_p2=p_p2, p_p3=p_p3, p_p4=p_p4,
         pt_p1=pt_p1, pt_p2=pt_p2, pt_p3=pt_p3, pt_p4=pt_p4)
+    
+    def before_next_page(self):
+        p1 = self.group.get_player_by_id(1)
+        Group.treatment = p1.participant.vars['treatment']
 
 class pay_4(WaitPage):
     def is_displayed(self):
@@ -379,17 +385,14 @@ class pay_4(WaitPage):
 
 class Encuesta_final(Page):
     def is_displayed(self):
+        p1 = self.group.get_player_by_id(1)
+        Group.treatment = p1.participant.vars['treatment']
         return self.round_number == Constants.num_rounds
 
     form_model = 'player'
-    if Group.treatment=='T1' or Group.treatment=='T3':
-        form_fields = ['num_ID','gender','age','career','ciclo','escala','exp',
+    form_fields = ['num_ID','gender','age','career','ciclo','escala','exp',
         'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10', 'q11','q12','q13',
         'q14','q15','q16','q17','q18','q19','q20',]
-    else:
-        form_fields = ['num_ID','gender','age','career','ciclo','escala','exp',
-        'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10', 'q11','q12','q13',
-        'q14','q15','q16','q17','q18',]
 
 class Final_e2lab(Page):
     def is_displayed(self):
@@ -409,19 +412,19 @@ page_sequence = [
     Wait_1,
     Ranking_conteo_R1,
     pay_1,
-    #Tarea_conteo_R2,
-    #Wait_2,
-    #Ranking_conteo_R2,
-    #pay_2,
-    #Tarea_conteo_R3,
-    #Wait_3,
-    #Ranking_conteo_R3,
-    #pay_3,
-    #Tarea_conteo_R4,
-    #Wait_4,
-    #Ranking_conteo_R4,
-    #pay_4,
-    #Encuesta_final,  
+    Tarea_conteo_R2,
+    Wait_2,
+    Ranking_conteo_R2,
+    pay_2,
+    Tarea_conteo_R3,
+    Wait_3,
+    Ranking_conteo_R3,
+    pay_3,
+    Tarea_conteo_R4,
+    Wait_4,
+    Ranking_conteo_R4,
+    pay_4,
+    Encuesta_final,  
     Final_e2lab,
     ]
 
