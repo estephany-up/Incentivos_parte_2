@@ -524,7 +524,12 @@ class Player(BasePlayer):
         widget=widgets.RadioSelectHorizontal,
     )
     ciclo = models.IntegerField(label='5. ¿Qué ciclo estás cursando actualmente? (Ej:si te encuentras en quinto ciclo, ingresa el número 5)')
-    escala = models.StringField(label='6. ¿En qué escala de pensión te encuentras?')
+    escala = models.StringField(
+        choices=[['Escala 1','Escala 1'],['Escala 2', 'Escala 2'],['Escala 3','Escala 3'],['Escala 4', 'Escala 4'],
+        ['Escala 5','Escala 5'],['Escala 6', 'Escala 6'],['Otro', 'Otro']],
+        label='6. ¿En qué escala de pensión te encuentras?',
+        widget=widgets.RadioSelectHorizontal,
+    )
     exp = models.StringField(
         choices=[['No','No'],['Sí, una vez','Sí, una vez'],['Sí, más de una vez','Sí, más de una vez']],
         label='7. ¿Has participado en un experimento anteriormente?',
